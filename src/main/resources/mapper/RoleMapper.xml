@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dsc.ufocus.mapper.RoleMapper">
+  <resultMap id="BaseResultMap" type="cn.dsc.ufocus.entity.RoleEntity">
+    <!--@mbg.generated-->
+    <!--@Table `role`-->
+    <id column="role_id" jdbcType="BIGINT" property="roleId" />
+    <result column="chn_nm" jdbcType="VARCHAR" property="chnName" />
+    <result column="crt_usr_id" jdbcType="BIGINT" property="createUserId" />
+    <result column="crt_tm" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="latest_update_usr_id" jdbcType="BIGINT" property="latestUpdateUserId" />
+    <result column="latest_update_tm" jdbcType="TIMESTAMP" property="latestUpdateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    role_id, chn_nm, crt_usr_id, crt_tm, latest_update_usr_id, latest_update_tm
+  </sql>
+</mapper>

@@ -1,0 +1,11 @@
+server:
+  servlet:
+    context-path: /api
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ufocus
+    username: root
+    password: dingshichen
+  jackson:
+    default-property-inclusion: non_null
