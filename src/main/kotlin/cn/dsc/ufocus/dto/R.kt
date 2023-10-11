@@ -7,5 +7,3 @@ data class R<T>(
 )
 
 fun <T> result(apply: () -> T?) = R(data = apply())
-
-fun <T> result(apply: () -> Unit) = R<T>()
