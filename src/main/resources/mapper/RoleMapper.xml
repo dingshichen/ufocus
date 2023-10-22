@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="cn.dsc.ufocus.entity.RoleEntity">
     <!--@mbg.generated-->
     <!--@Table `role`-->
-    <id column="role_id" jdbcType="BIGINT" property="roleId" />
+    <id column="role_id" jdbcType="BIGINT" property="id" />
     <result column="chn_nm" jdbcType="VARCHAR" property="chnName" />
     <result column="crt_usr_id" jdbcType="BIGINT" property="createUserId" />
     <result column="crt_tm" jdbcType="TIMESTAMP" property="createTime" />

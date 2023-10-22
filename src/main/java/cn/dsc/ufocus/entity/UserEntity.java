@@ -25,7 +25,7 @@ public class UserEntity {
      * 用户ID
      */
     @TableId(value = "usr_id", type = IdType.ASSIGN_ID)
-    private Long userId;
+    private Long id;
 
     /**
      * 中文名称

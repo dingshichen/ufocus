@@ -4,4 +4,7 @@
 
 package cn.dsc.ufocus.service
 
-interface UserPasswordService
+interface UserPasswordService {
+
+    fun loadPassword(userId: Long): String
+}

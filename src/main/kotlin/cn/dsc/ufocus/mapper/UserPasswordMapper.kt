@@ -7,4 +7,7 @@ package cn.dsc.ufocus.mapper
 import cn.dsc.ufocus.entity.UserPasswordEntity
 import com.baomidou.mybatisplus.core.mapper.BaseMapper
 
-interface UserPasswordMapper : BaseMapper<UserPasswordEntity>
+interface UserPasswordMapper : BaseMapper<UserPasswordEntity> {
+
+    fun selectPassword(userId: Long): String
+}

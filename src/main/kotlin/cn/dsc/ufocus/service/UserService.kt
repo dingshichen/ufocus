@@ -4,7 +4,11 @@
 
 package cn.dsc.ufocus.service
 
+import cn.dsc.ufocus.param.user.User
 import org.springframework.security.core.userdetails.UserDetailsPasswordService
 import org.springframework.security.core.userdetails.UserDetailsService
 
-interface UserService : UserDetailsService, UserDetailsPasswordService
+interface UserService : UserDetailsService, UserDetailsPasswordService {
+
+    fun load(id: Long): User?
+}

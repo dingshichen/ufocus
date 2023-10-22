@@ -25,7 +25,7 @@ public class RoleEntity {
      * 角色ID
      */
     @TableId(value = "role_id", type = IdType.ASSIGN_ID)
-    private Long roleId;
+    private Long id;
 
     /**
      * 中文名称
