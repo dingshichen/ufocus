@@ -5,12 +5,10 @@
 package cn.dsc.ufocus.config
 
 import cn.dsc.ufocus.consts.RStatus
-import cn.dsc.ufocus.dto.fail
+import cn.dsc.ufocus.dto.result
 import cn.dsc.ufocus.dto.success
 import com.fasterxml.jackson.databind.ObjectMapper
 import lombok.extern.slf4j.Slf4j
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
@@ -26,8 +24,6 @@ import org.springframework.security.web.SecurityFilterChain
 @Slf4j
 @Configuration
 class SecurityConfiguration {
-
-    private val log: Logger = LoggerFactory.getLogger(SecurityConfiguration::class.java)
 
     @Bean
     fun filterChain(http: HttpSecurity, objectMapper: ObjectMapper): SecurityFilterChain {
@@ -50,7 +46,7 @@ class SecurityConfiguration {
                     res.status = HttpStatus.OK.value()
                     res.contentType = MediaType.APPLICATION_JSON_VALUE
                     res.characterEncoding = Charsets.UTF_8.name()
-                    res.writer.println(objectMapper.writeValueAsString(fail(RStatus.LOGIN_FAIL)))
+                    res.writer.println(objectMapper.writeValueAsString(RStatus.LOGIN_FAIL.result()))
                 }
                 .and()
                 .logout()
@@ -66,12 +62,18 @@ class SecurityConfiguration {
                 .and()
                 .exceptionHandling { conf ->
                     conf.authenticationEntryPoint { _, res, _ ->
-                        // 未认证的请求，返回 401
-                        res.sendError(HttpStatus.UNAUTHORIZED.value())
+                        // 未认证的请求
+                        res.status = HttpStatus.OK.value()
+                        res.contentType = MediaType.APPLICATION_JSON_VALUE
+                        res.characterEncoding = Charsets.UTF_8.name()
+                        res.writer.println(objectMapper.writeValueAsString(RStatus.AUTH_FAIL.result()))
                     }
                     conf.accessDeniedHandler { _, res, _ ->
-                        // 未授权的请求，返回 403
-                        res.sendError(HttpStatus.FORBIDDEN.value())
+                        // 未授权的请求
+                        res.status = HttpStatus.OK.value()
+                        res.contentType = MediaType.APPLICATION_JSON_VALUE
+                        res.characterEncoding = Charsets.UTF_8.name()
+                        res.writer.println(objectMapper.writeValueAsString(RStatus.PERMISSION_FAIL.result()))
                     }
                 }
                 .csrf()

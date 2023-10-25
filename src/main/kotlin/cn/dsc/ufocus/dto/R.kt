@@ -12,5 +12,5 @@ fun success() = R<Any>()
 
 fun <T> success(apply: () -> T?) = R(data = apply())
 
-fun fail(status: RStatus = RStatus.SYSTEM_ERROR) = R<Any>(status.code, status.message)
+fun RStatus.result() = R<Any>(this.code, this.message)
 
