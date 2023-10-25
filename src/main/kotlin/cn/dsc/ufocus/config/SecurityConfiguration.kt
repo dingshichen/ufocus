@@ -53,6 +53,17 @@ class SecurityConfiguration {
                     res.writer.println(objectMapper.writeValueAsString(fail(RStatus.LOGIN_FAIL)))
                 }
                 .and()
+                .logout()
+                .logoutUrl("/auth/logout")
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .logoutSuccessHandler { _, res, _ ->
+                    res.status = HttpStatus.OK.value()
+                    res.contentType = MediaType.APPLICATION_JSON_VALUE
+                    res.characterEncoding = Charsets.UTF_8.name()
+                    res.writer.println(objectMapper.writeValueAsString(success()))
+                }
+                .and()
                 .exceptionHandling { conf ->
                     conf.authenticationEntryPoint { _, res, _ ->
                         // 未认证的请求，返回 401
