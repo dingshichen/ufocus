@@ -26,10 +26,6 @@ class UserServiceImpl(
         return UserDetail(entity.id, entity.emailAddress, password, entity.isLockFlag)
     }
 
-    override fun updatePassword(user: UserDetails?, newPassword: String?): UserDetails {
-        TODO("Not yet implemented")
-    }
-
     override fun load(id: Long): User? {
         val user = userMapper.selectById(id)?.detail() ?: return null
         // TODO FILL

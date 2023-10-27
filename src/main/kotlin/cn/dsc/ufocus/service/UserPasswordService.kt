@@ -4,7 +4,9 @@
 
 package cn.dsc.ufocus.service
 
-interface UserPasswordService {
+import org.springframework.security.core.userdetails.UserDetailsPasswordService
+
+interface UserPasswordService : UserDetailsPasswordService {
 
     fun loadPassword(userId: Long): String
 }

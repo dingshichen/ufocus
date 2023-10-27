@@ -12,6 +12,7 @@ import java.util.Collection;
  * @author ding.shichen
  */
 @ToString
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDetail extends Base implements UserDetails {
