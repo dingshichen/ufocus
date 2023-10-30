@@ -76,6 +76,8 @@ class SecurityConfiguration {
                         res.writer.println(objectMapper.writeValueAsString(RStatus.PERMISSION_FAIL.result()))
                     }
                 }
+                .rememberMe()       // remember-me = on
+                .and()
                 .csrf()
                 .disable()
         }.build()
