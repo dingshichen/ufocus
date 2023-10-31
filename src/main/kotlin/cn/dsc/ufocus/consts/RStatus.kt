@@ -13,7 +13,7 @@ enum class RStatus(
 ) {
 
     SUCCESS(0, "操作成功"),
-    AUTH_FAIL(-1000, "访问无效"),
+    AUTH_FAIL(-1000, "认证无效"),
     PERMISSION_FAIL(-1100, "权限无效"),
     SYSTEM_ERROR(-2000, "系统异常"),
     LOGIN_FAIL(-2100, "登陆失败，账户名或密码错误"),

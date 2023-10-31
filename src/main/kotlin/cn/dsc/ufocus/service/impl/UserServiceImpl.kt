@@ -8,7 +8,7 @@ import cn.dsc.ufocus.convert.detail
 import cn.dsc.ufocus.mapper.UserMapper
 import cn.dsc.ufocus.param.user.User
 import cn.dsc.ufocus.param.user.UserDetail
-import cn.dsc.ufocus.service.UserPasswordService
+import cn.dsc.ufocus.service.UserCertificateService
 import cn.dsc.ufocus.service.UserService
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UsernameNotFoundException
@@ -17,12 +17,12 @@ import org.springframework.stereotype.Service
 @Service
 class UserServiceImpl(
     val userMapper: UserMapper,
-    val userPasswordService: UserPasswordService
+    val userCertificateService: UserCertificateService
 ) : UserService {
 
     override fun loadUserByUsername(username: String): UserDetails {
         val entity = userMapper.selectByEmail(username) ?: throw UsernameNotFoundException("获取不到用户")
-        val password = userPasswordService.loadPassword(entity.id)
+        val password = userCertificateService.loadPassword(entity.id)
         return UserDetail(entity.id, entity.emailAddress, password, entity.isLockFlag)
     }
 

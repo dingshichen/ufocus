@@ -9,15 +9,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 /**
- * 用户密码
+ * 用户凭证
  */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName(value = "usr_pwd")
-public class UserPasswordEntity {
+@TableName(value = "usr_crtfct")
+public class UserCertificateEntity {
 
     /**
      * 用户ID
@@ -30,4 +32,22 @@ public class UserPasswordEntity {
      */
     @TableField(value = "pwd")
     private String pwd;
+
+    /**
+     * 记住我服务
+     */
+    @TableField(value = "rmbr_me_series")
+    private String rememberMeSeries;
+
+    /**
+     * 记住我令牌
+     */
+    @TableField(value = "rmbr_me_tkn")
+    private String rememberMeToken;
+
+    /**
+     * 记住我最近使用时间
+     */
+    @TableField(value = "rmbr_me_latest_used_tm")
+    private LocalDateTime rememberMeLatestUsedTime;
 }

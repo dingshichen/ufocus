@@ -5,8 +5,9 @@
 package cn.dsc.ufocus.service
 
 import org.springframework.security.core.userdetails.UserDetailsPasswordService
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository
 
-interface UserPasswordService : UserDetailsPasswordService {
+interface UserCertificateService : UserDetailsPasswordService, PersistentTokenRepository {
 
     fun loadPassword(userId: Long): String
 }

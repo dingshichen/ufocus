@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dsc.ufocus.mapper.UserCertificateMapper">
+  <resultMap id="BaseResultMap" type="cn.dsc.ufocus.entity.UserCertificateEntity">
+    <!--@mbg.generated-->
+    <!--@Table usr_crtfct-->
+    <id column="usr_id" jdbcType="BIGINT" property="userId" />
+    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+    <result column="rmbr_me_series" jdbcType="VARCHAR" property="rememberMeSeries" />
+    <result column="rmbr_me_tkn" jdbcType="VARCHAR" property="rememberMeToken" />
+    <result column="rmbr_me_latest_used_tm" jdbcType="TIMESTAMP" property="rememberMeLatestUsedTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    usr_id, pwd, rmbr_me_series, rmbr_me_tkn, rmbr_me_latest_used_tm
+  </sql>
+
+  <select id="selectPassword" resultType="java.lang.String">
+    select pwd from usr_crtfct where usr_id = #{userId}
+  </select>
+
+  <update id="updatePassword">
+    update usr_crtfct set pwd = #{newPassword} where usr_id = #{userId}
+  </update>
+
+  <update id="updateRememberMe">
+    update usr_crtfct set rmbr_me_series = #{rememberMeSeries}, rmbr_me_tkn = #{rememberMeToken}, rmbr_me_latest_used_tm = #{rememberMeLatestUsedTime} where usr_id = #{userId}
+  </update>
+
+  <update id="updateRememberMeBySeries">
+    update usr_crtfct set rmbr_me_tkn = #{rememberMeToken}, rmbr_me_latest_used_tm = #{rememberMeLatestUsedTime} where rmbr_me_series = #{rememberMeSeries}
+  </update>
+
+  <select id="selectRememberMeBySeries" resultType="org.springframework.security.web.authentication.rememberme.PersistentRememberMeToken">
+    select u.email_adrs as username, c.rmbr_me_series as series, c.rmbr_me_tkn as tokenValue, c.rmbr_me_latest_used_tm as date from usr_crtfct c
+        inner join usr u on c.usr_id = u.usr_id
+    where c.rmbr_me_series = #{rememberMeSeries}
+  </select>
+
+  <update id="clearRememberMeByEmailAddress">
+    update usr_crtfct c inner join usr u on c.usr_id = u.usr_id
+    set c.rmbr_me_series = null, c.rmbr_me_tkn = null, c.rmbr_me_latest_used_tm = null
+    where u.email_adrs = #{emailAddress}
+  </update>
+</mapper>

@@ -7,6 +7,7 @@ package cn.dsc.ufocus.config
 import cn.dsc.ufocus.consts.RStatus
 import cn.dsc.ufocus.dto.result
 import cn.dsc.ufocus.dto.success
+import cn.dsc.ufocus.service.UserCertificateService
 import com.fasterxml.jackson.databind.ObjectMapper
 import lombok.extern.slf4j.Slf4j
 import org.springframework.context.annotation.Bean
@@ -26,7 +27,7 @@ import org.springframework.security.web.SecurityFilterChain
 class SecurityConfiguration {
 
     @Bean
-    fun filterChain(http: HttpSecurity, objectMapper: ObjectMapper): SecurityFilterChain {
+    fun filterChain(http: HttpSecurity, objectMapper: ObjectMapper, userCertificateService: UserCertificateService): SecurityFilterChain {
         return http.authorizeHttpRequests {
             it.mvcMatchers("/api/index")
                 .permitAll()
@@ -77,6 +78,7 @@ class SecurityConfiguration {
                     }
                 }
                 .rememberMe()       // remember-me = on
+                .tokenRepository(userCertificateService)
                 .and()
                 .csrf()
                 .disable()
