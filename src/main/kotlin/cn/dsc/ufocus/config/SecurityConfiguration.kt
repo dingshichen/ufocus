@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
+import org.springframework.security.authentication.LockedException
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -62,12 +63,17 @@ class SecurityConfiguration {
                 }
                 .and()
                 .exceptionHandling { conf ->
-                    conf.authenticationEntryPoint { _, res, _ ->
+                    conf.authenticationEntryPoint { _, res, ex ->
                         // 未认证的请求
                         res.status = HttpStatus.OK.value()
                         res.contentType = MediaType.APPLICATION_JSON_VALUE
                         res.characterEncoding = Charsets.UTF_8.name()
-                        res.writer.println(objectMapper.writeValueAsString(RStatus.AUTH_FAIL.result()))
+                        val status = if (ex is LockedException) {
+                            RStatus.LOGIN_LOCKED
+                        } else {
+                            RStatus.AUTH_FAIL
+                        }
+                        res.writer.println(objectMapper.writeValueAsString(status.result()))
                     }
                     conf.accessDeniedHandler { _, res, _ ->
                         // 未授权的请求

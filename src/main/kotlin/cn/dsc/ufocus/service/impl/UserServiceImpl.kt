@@ -8,6 +8,7 @@ import cn.dsc.ufocus.convert.detail
 import cn.dsc.ufocus.mapper.UserMapper
 import cn.dsc.ufocus.param.user.User
 import cn.dsc.ufocus.param.user.UserDetail
+import cn.dsc.ufocus.service.RoleService
 import cn.dsc.ufocus.service.UserCertificateService
 import cn.dsc.ufocus.service.UserService
 import org.springframework.security.core.userdetails.UserDetails
@@ -17,7 +18,8 @@ import org.springframework.stereotype.Service
 @Service
 class UserServiceImpl(
     val userMapper: UserMapper,
-    val userCertificateService: UserCertificateService
+    val userCertificateService: UserCertificateService,
+    val roleService: RoleService,
 ) : UserService {
 
     override fun loadUserByUsername(username: String): UserDetails {
