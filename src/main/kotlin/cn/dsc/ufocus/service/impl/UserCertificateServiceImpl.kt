@@ -4,10 +4,10 @@
 
 package cn.dsc.ufocus.service.impl
 
+import cn.dsc.ufocus.currentUser
 import cn.dsc.ufocus.mapper.UserCertificateMapper
 import cn.dsc.ufocus.param.user.UserDetail
 import cn.dsc.ufocus.service.UserCertificateService
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.web.authentication.rememberme.PersistentRememberMeToken
 import org.springframework.stereotype.Service
@@ -29,8 +29,7 @@ class UserCertificateServiceImpl(
     }
 
     override fun createNewToken(token: PersistentRememberMeToken) {
-        val user = SecurityContextHolder.getContext().authentication.principal as UserDetail
-        userCertificateMapper.updateRememberMe(user.id, token.series, token.tokenValue, token.date)
+        userCertificateMapper.updateRememberMe(currentUser().id, token.series, token.tokenValue, token.date)
     }
 
     override fun updateToken(series: String, tokenValue: String, lastUsed: Date) {

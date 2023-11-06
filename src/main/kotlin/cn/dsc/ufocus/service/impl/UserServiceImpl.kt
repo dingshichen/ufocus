@@ -5,6 +5,8 @@
 package cn.dsc.ufocus.service.impl
 
 import cn.dsc.ufocus.convert.detail
+import cn.dsc.ufocus.currentUser
+import cn.dsc.ufocus.exception.EntityNotFoundException
 import cn.dsc.ufocus.mapper.UserMapper
 import cn.dsc.ufocus.param.user.User
 import cn.dsc.ufocus.param.user.UserDetail
@@ -14,6 +16,8 @@ import cn.dsc.ufocus.service.UserService
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDateTime
 
 @Service
 class UserServiceImpl(
@@ -33,5 +37,15 @@ class UserServiceImpl(
         // TODO FILL
 
         return user
+    }
+
+    @Transactional
+    override fun lock(id: Long): Boolean {
+        val user = userMapper.selectById(id) ?: throw EntityNotFoundException("用户不存在")
+        user.isLockFlag = true
+        user.latestUpdateUserId = currentUser().id
+        user.latestUpdateTime = LocalDateTime.now()
+        userMapper.updateById(user)
+        return true
     }
 }

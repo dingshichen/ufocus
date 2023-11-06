@@ -6,8 +6,10 @@ package cn.dsc.ufocus.mapper
 
 import cn.dsc.ufocus.entity.UserEntity
 import com.baomidou.mybatisplus.core.mapper.BaseMapper
+import org.apache.ibatis.annotations.Param
 
 interface UserMapper : BaseMapper<UserEntity> {
 
-    fun selectByEmail(emailAddress: String): UserEntity?
+    fun selectByEmail(@Param("emailAddress") emailAddress: String): UserEntity?
+
 }

@@ -10,4 +10,6 @@ import org.springframework.security.core.userdetails.UserDetailsService
 interface UserService : UserDetailsService {
 
     fun load(id: Long): User?
+
+    fun lock(id: Long): Boolean
 }
