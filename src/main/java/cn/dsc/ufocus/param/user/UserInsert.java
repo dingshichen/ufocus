@@ -1,12 +1,12 @@
 package cn.dsc.ufocus.param.user;
 
-import cn.dsc.ufocus.param.role.RoleOption;
+import cn.dsc.ufocus.param.InsertParam;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 /**
@@ -16,7 +16,13 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserItem extends UserOption {
+public class UserInsert extends InsertParam {
+
+    /**
+     * 中文名称
+     */
+    @NotEmpty
+    private String chnName;
 
     /**
      * 手机号码
@@ -26,30 +32,18 @@ public class UserItem extends UserOption {
     /**
      * 电子邮箱地址
      */
+    @NotEmpty
     private String emailAddress;
 
     /**
-     * 角色
+     * 角色ID集合
      */
-    private List<RoleOption> roles;
+    @NotEmpty
+    private List<Long> roleIds;
 
     /**
-     * 创建用户
+     * 密码
      */
-    private UserOption createUser;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 最近更新用户
-     */
-    private UserOption latestUpdateUser;
-
-    /**
-     * 最近更新时间
-     */
-    private LocalDateTime latestUpdateTime;
+    @NotEmpty
+    private String pwd;
 }

@@ -4,4 +4,7 @@
 
 package cn.dsc.ufocus.service
 
-interface RoleService
+import cn.dsc.ufocus.base.service.BaseFillService
+import cn.dsc.ufocus.param.role.RoleOption
+
+interface RoleService : BaseFillService<RoleOption>

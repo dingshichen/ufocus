@@ -19,9 +19,35 @@
     usr_id, chn_nm, mbl_phn_nmbr, email_adrs, is_lck_flg, crt_usr_id, crt_tm, latest_update_usr_id,
     latest_update_tm
   </sql>
+  <sql id="Join_Column">
+    u.usr_id, u.chn_nm, u.mbl_phn_nmbr, u.email_adrs, u.is_lck_flg, u.crt_usr_id, u.crt_tm, u.latest_update_usr_id,
+    u.latest_update_tm
+  </sql>
 
   <select id="selectByEmail" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" />
     from usr where email_adrs = #{emailAddress}
+  </select>
+
+  <select id="select" resultMap="BaseResultMap">
+    select <include refid="Join_Column" />
+    from usr u
+    <if test="query.roleId != null">
+      inner join usr_role_rel r on u.usr_id = r.usr_id
+    </if>
+    <where>
+      <if test="query.chnName != null and query.chnName != ''">
+        and u.chn_nm like concat('%', #{query.chnName}, '%')
+      </if>
+      <if test="query.mobilePhoneNumber != null and query.mobilePhoneNumber != ''">
+        and u.mbl_phn_nmbr like concat('%', #{query.mobilePhoneNumber}, '%')
+      </if>
+      <if test="query.isLockFlag != null">
+        and u.is_lck_flg = #{query.isLockFlag}
+      </if>
+      <if test="query.roleId != null">
+        and r.role_id = #{query.roleId}
+      </if>
+    </where>
   </select>
 </mapper>

@@ -11,4 +11,20 @@
     <!--@mbg.generated-->
     usr_id, role_id
   </sql>
+
+  <select id="selectByUserIds" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from usr_role_rel
+    where usr_id in
+    <foreach collection="userIds" item="userId" open="(" separator="," close=")">
+      #{userId}
+    </foreach>
+  </select>
+
+  <insert id="insertBatch">
+    insert into usr_role_rel (usr_id, role_id)
+    values
+    <foreach collection="entities" item="item" separator="," >
+      (#{item.userId}, #{item.roleId})
+    </foreach>
+    </insert>
 </mapper>

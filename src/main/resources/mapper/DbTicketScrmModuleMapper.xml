@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dsc.ufocus.mapper.DbTicketScrmModuleMapper">
+  <resultMap id="BaseResultMap" type="cn.dsc.ufocus.entity.DbTicketScrumModule">
+    <!--@mbg.generated-->
+    <!--@Table db_ticket_scrm_module-->
+    <id column="db_ticket_scrm_module_id" jdbcType="BIGINT" property="dbTicketScrumModuleId" />
+    <result column="db_ticket_scrm_module_typ" jdbcType="VARCHAR" property="dbTicketScrumModuleTyp" />
+    <result column="db_ticket_scrm_id" jdbcType="BIGINT" property="dbTicketScrumId" />
+    <result column="sorting_seq_num" jdbcType="BIGINT" property="sortingSeqNum" />
+    <result column="crt_usr_id" jdbcType="BIGINT" property="createUserId" />
+    <result column="crt_tm" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    db_ticket_scrm_module_id, db_ticket_scrm_module_typ, db_ticket_scrm_id, sorting_seq_num, 
+    crt_usr_id, crt_tm
+  </sql>
+</mapper>

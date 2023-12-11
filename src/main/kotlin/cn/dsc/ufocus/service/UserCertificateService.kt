@@ -10,4 +10,6 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 interface UserCertificateService : UserDetailsPasswordService, PersistentTokenRepository {
 
     fun loadPassword(userId: Long): String
+    
+    fun insert(userId: Long, pwd: String)
 }

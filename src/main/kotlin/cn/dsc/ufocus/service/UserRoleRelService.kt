@@ -4,4 +4,11 @@
 
 package cn.dsc.ufocus.service
 
-interface UserRoleRelService
+import cn.dsc.ufocus.base.service.BaseKeyService
+import cn.dsc.ufocus.param.user.UserRoleRel
+
+interface UserRoleRelService : BaseKeyService<Long, UserRoleRel> {
+
+    fun insert(userId: Long, roleIds: List<Long>)
+
+}

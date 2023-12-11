@@ -5,12 +5,14 @@
 package cn.dsc.ufocus.service.impl
 
 import cn.dsc.ufocus.currentUser
+import cn.dsc.ufocus.entity.UserCertificateEntity
 import cn.dsc.ufocus.mapper.UserCertificateMapper
 import cn.dsc.ufocus.param.user.UserDetail
 import cn.dsc.ufocus.service.UserCertificateService
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.web.authentication.rememberme.PersistentRememberMeToken
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Service
@@ -20,6 +22,15 @@ class UserCertificateServiceImpl(
 
     override fun loadPassword(userId: Long): String {
         return userCertificateMapper.selectPassword(userId)
+    }
+
+    @Transactional
+    override fun insert(userId: Long, pwd: String) {
+        UserCertificateEntity().also {
+            it.userId = userId
+            it.pwd = pwd
+            userCertificateMapper.insert(it)
+        }
     }
 
     override fun updatePassword(user: UserDetails, newPassword: String): UserDetails {

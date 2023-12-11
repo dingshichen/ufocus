@@ -6,7 +6,7 @@
     <!--@Table usr_crtfct-->
     <id column="usr_id" jdbcType="BIGINT" property="userId" />
     <result column="pwd" jdbcType="VARCHAR" property="pwd" />
-    <result column="rmbr_me_series" jdbcType="VARCHAR" property="rememberMeSeries" />
+    <result column="rmbr_me_srs" jdbcType="VARCHAR" property="rememberMeSeries" />
     <result column="rmbr_me_tkn" jdbcType="VARCHAR" property="rememberMeToken" />
     <result column="rmbr_me_latest_used_tm" jdbcType="TIMESTAMP" property="rememberMeLatestUsedTime" />
   </resultMap>

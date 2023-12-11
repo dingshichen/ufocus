@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dsc.ufocus.mapper.DbTicketScriptMapper">
+  <resultMap id="BaseResultMap" type="cn.dsc.ufocus.entity.DbTicketScript">
+    <!--@mbg.generated-->
+    <!--@Table db_ticket_script-->
+    <id column="db_ticket_script_id" jdbcType="BIGINT" property="id" />
+    <result column="ticket_id" jdbcType="BIGINT" property="ticketId" />
+    <result column="text_cntnt" jdbcType="LONGVARCHAR" property="textContent" />
+    <result column="prfm_state" jdbcType="VARCHAR" property="performState" />
+    <result column="latest_update_usr_id" jdbcType="BIGINT" property="latestUpdateUserId" />
+    <result column="latest_update_tm" jdbcType="TIMESTAMP" property="latestUpdateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    db_ticket_script_id, ticket_id, text_cntnt, prfm_state, latest_update_usr_id, latest_update_tm
+  </sql>
+</mapper>

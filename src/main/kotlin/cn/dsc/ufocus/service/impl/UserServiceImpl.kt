@@ -4,15 +4,19 @@
 
 package cn.dsc.ufocus.service.impl
 
-import cn.dsc.ufocus.convert.detail
+import cn.dsc.ufocus.convert.*
 import cn.dsc.ufocus.currentUser
+import cn.dsc.ufocus.entity.UserEntity
 import cn.dsc.ufocus.exception.EntityNotFoundException
 import cn.dsc.ufocus.mapper.UserMapper
-import cn.dsc.ufocus.param.user.User
-import cn.dsc.ufocus.param.user.UserDetail
+import cn.dsc.ufocus.param.PageInfo
+import cn.dsc.ufocus.param.PageParam
+import cn.dsc.ufocus.param.user.*
 import cn.dsc.ufocus.service.RoleService
 import cn.dsc.ufocus.service.UserCertificateService
+import cn.dsc.ufocus.service.UserRoleRelService
 import cn.dsc.ufocus.service.UserService
+import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
@@ -24,6 +28,7 @@ class UserServiceImpl(
     val userMapper: UserMapper,
     val userCertificateService: UserCertificateService,
     val roleService: RoleService,
+    val userRoleRelService: UserRoleRelService,
 ) : UserService {
 
     override fun loadUserByUsername(username: String): UserDetails {
@@ -33,9 +38,13 @@ class UserServiceImpl(
     }
 
     override fun load(id: Long): User? {
-        val user = userMapper.selectById(id)?.detail() ?: return null
-        // TODO FILL
-
+        val user = userMapper.selectById(id)?.toDetail() ?: return null
+        userRoleRelService.fillListByKey(user, UserItem::getId) { u, r ->
+            u.roles = r.map(UserRoleRel::toRole)
+        }
+        roleService.fillList(user, UserItem::getRoles) { u, r ->
+            u.roles = r
+        }
         return user
     }
 
@@ -47,5 +56,25 @@ class UserServiceImpl(
         user.latestUpdateTime = LocalDateTime.now()
         userMapper.updateById(user)
         return true
+    }
+
+    override fun list(param: PageParam<UserQuery>): PageInfo<UserItem> {
+        val users = userMapper.select(PageDTO.of(param.page, param.size), param.query).toInfo(UserEntity::toItem)
+        userRoleRelService.fillListByKey(users, UserItem::getId) { u, r ->
+            u.roles = r.map(UserRoleRel::toRole)
+        }
+        roleService.fillList(users, UserItem::getRoles) { u, r ->
+            u.roles = r
+        }
+        return users
+    }
+
+    @Transactional
+    override fun insert(userInsert: UserInsert): Long {
+        val entity = userInsert.toEntity()
+        userMapper.insert(entity)
+        userCertificateService.insert(entity.id, userInsert.pwd)
+        userRoleRelService.insert(entity.id, userInsert.roleIds)
+        return entity.id
     }
 }
