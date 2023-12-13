@@ -5,9 +5,13 @@
 package cn.dsc.ufocus
 
 import cn.dsc.ufocus.exception.CurrentUserNotFoundException
+import cn.dsc.ufocus.param.Operate
 import cn.dsc.ufocus.param.user.UserDetail
 import org.springframework.security.core.context.SecurityContextHolder
+import java.time.LocalDateTime
 
 fun currentUser() = (possiblePrincipal() ?: throw CurrentUserNotFoundException("当前操作用户不存在")) as UserDetail
 
 fun possiblePrincipal() = SecurityContextHolder.getContext().authentication?.principal
+
+fun currentOperate() = Operate(currentUser().id, LocalDateTime.now())

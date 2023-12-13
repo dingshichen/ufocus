@@ -5,7 +5,6 @@
 package cn.dsc.ufocus.service.impl
 
 import cn.dsc.ufocus.convert.toDetail
-import cn.dsc.ufocus.entity.UserRoleRelEntity
 import cn.dsc.ufocus.mapper.UserRoleRelMapper
 import cn.dsc.ufocus.param.user.UserRoleRel
 import cn.dsc.ufocus.service.UserRoleRelService
@@ -24,12 +23,20 @@ class UserRoleRelServiceImpl(
 
     @Transactional
     override fun insert(userId: Long, roleIds: List<Long>) {
-        val entities = roleIds.map { roleId ->
-            UserRoleRelEntity().also {
-                it.userId = userId
-                it.roleId = roleId
-            }
+        userRoleRelMapper.insertByIds(userId, roleIds)
+    }
+
+    @Transactional
+    override fun update(userId: Long, roleIds: List<Long>) {
+        val entities = userRoleRelMapper.selectByUserId(userId)
+        val ids = entities.map { it.roleId }
+        val insertRoleIds = roleIds.filter { it !in ids }
+        val deleteRoleIds = ids.filter { it !in roleIds }
+        if (insertRoleIds.isNotEmpty()) {
+            insert(userId, insertRoleIds)
         }
-        userRoleRelMapper.insertBatch(entities)
+        if (deleteRoleIds.isNotEmpty()) {
+            userRoleRelMapper.deleteByIds(userId, deleteRoleIds)
+        }
     }
 }

@@ -8,10 +8,7 @@ import cn.dsc.ufocus.dto.R
 import cn.dsc.ufocus.dto.success
 import cn.dsc.ufocus.param.PageInfo
 import cn.dsc.ufocus.param.PageParam
-import cn.dsc.ufocus.param.user.User
-import cn.dsc.ufocus.param.user.UserInsert
-import cn.dsc.ufocus.param.user.UserItem
-import cn.dsc.ufocus.param.user.UserQuery
+import cn.dsc.ufocus.param.user.*
 import cn.dsc.ufocus.service.UserService
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.validation.annotation.Validated
@@ -36,13 +33,20 @@ class UserController(
     }
 
     @PreAuthorize("hasAuthority('USER_MANANGE')")
+    @PostMapping("/insert")
     fun insert(@RequestBody @Validated userInsert: UserInsert): R<Long> = success {
         userService.insert(userInsert)
     }
 
     @PreAuthorize("hasAuthority('USER_MANANGE')")
+    @PostMapping("/update")
+    fun update(@RequestBody @Validated userUpdate: UserUpdate): R<*> = success {
+        userService.update(userUpdate)
+    }
+
+    @PreAuthorize("hasAuthority('USER_MANANGE')")
     @PostMapping("/lock/{id}")
-    fun lock(@PathVariable("id") id: Long): R<Any> = success {
+    fun lock(@PathVariable("id") id: Long): R<*> = success {
         userService.lock(id)
     }
 }

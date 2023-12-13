@@ -49,13 +49,12 @@ class UserServiceImpl(
     }
 
     @Transactional
-    override fun lock(id: Long): Boolean {
+    override fun lock(id: Long) {
         val user = userMapper.selectById(id) ?: throw EntityNotFoundException("用户不存在")
         user.isLockFlag = true
         user.latestUpdateUserId = currentUser().id
         user.latestUpdateTime = LocalDateTime.now()
         userMapper.updateById(user)
-        return true
     }
 
     override fun list(param: PageParam<UserQuery>): PageInfo<UserItem> {
@@ -76,5 +75,17 @@ class UserServiceImpl(
         userCertificateService.insert(entity.id, userInsert.pwd)
         userRoleRelService.insert(entity.id, userInsert.roleIds)
         return entity.id
+    }
+
+    @Transactional
+    override fun update(userUpdate: UserUpdate) {
+        val user = userMapper.selectById(userUpdate.id)
+        user.chnName = userUpdate.chnName
+        user.mobilePhoneNumber = userUpdate.mobilePhoneNumber
+        user.emailAddress = userUpdate.emailAddress
+        user.latestUpdateUserId = currentUser().id
+        user.latestUpdateTime = LocalDateTime.now()
+        userMapper.updateById(user)
+        userRoleRelService.update(userUpdate.id, userUpdate.roleIds)
     }
 }

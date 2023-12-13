@@ -11,4 +11,6 @@ interface UserRoleRelService : BaseKeyService<Long, UserRoleRel> {
 
     fun insert(userId: Long, roleIds: List<Long>)
 
+    fun update(userId: Long, roleIds: List<Long>)
+
 }

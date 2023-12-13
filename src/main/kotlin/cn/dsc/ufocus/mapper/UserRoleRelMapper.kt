@@ -10,7 +10,11 @@ import org.apache.ibatis.annotations.Param
 
 interface UserRoleRelMapper : BaseMapper<UserRoleRelEntity> {
 
+    fun selectByUserId(@Param("userId") userId: Long): List<UserRoleRelEntity>
+
     fun selectByUserIds(@Param("userIds") userIds: List<Long>): List<UserRoleRelEntity>
 
-    fun insertBatch(@Param("entities") entities: List<UserRoleRelEntity>)
+    fun insertByIds(@Param("userId") userId: Long, @Param("roleIds") roleIds: List<Long>)
+
+    fun deleteByIds(@Param("userId") userId: Long, @Param("roleIds") roleIds: List<Long>)
 }

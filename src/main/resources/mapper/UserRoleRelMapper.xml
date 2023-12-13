@@ -12,6 +12,11 @@
     usr_id, role_id
   </sql>
 
+  <select id="selectByUserId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from usr_role_rel
+    where usr_id = #{userId}
+  </select>
+
   <select id="selectByUserIds" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" /> from usr_role_rel
     where usr_id in
@@ -20,11 +25,20 @@
     </foreach>
   </select>
 
-  <insert id="insertBatch">
+  <insert id="insertByIds">
     insert into usr_role_rel (usr_id, role_id)
     values
-    <foreach collection="entities" item="item" separator="," >
-      (#{item.userId}, #{item.roleId})
+    <foreach collection="roleIds" item="roleId" separator="," >
+      (#{userId}, #{roleId})
     </foreach>
-    </insert>
+  </insert>
+
+  <delete id="deleteByIds">
+    delete from usr_role_rel where usr_id = #{userId} and role_id in
+    <foreach collection="roleIds" item="roleId" open="(" separator="," close=")">
+      #{roleId}
+    </foreach>
+  </delete>
+
+
 </mapper>
