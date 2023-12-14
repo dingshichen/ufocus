@@ -12,4 +12,8 @@ import lombok.*;
 @AllArgsConstructor
 public class RoleQuery extends Query {
 
+    /**
+     * 中文名称
+     */
+    private String chnName;
 }

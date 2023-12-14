@@ -14,6 +14,8 @@ interface UserRoleRelMapper : BaseMapper<UserRoleRelEntity> {
 
     fun selectByUserIds(@Param("userIds") userIds: List<Long>): List<UserRoleRelEntity>
 
+    fun selectRoleIdsByUserId(@Param("userId") userId: Long): List<Long>
+
     fun insertByIds(@Param("userId") userId: Long, @Param("roleIds") roleIds: List<Long>)
 
     fun deleteByIds(@Param("userId") userId: Long, @Param("roleIds") roleIds: List<Long>)

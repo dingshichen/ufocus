@@ -25,6 +25,10 @@
     </foreach>
   </select>
 
+  <select id="selectRoleIdsByUserId" resultType="java.lang.Long">
+    select role_id from usr_role_rel where usr_id = #{userId}
+  </select>
+
   <insert id="insertByIds">
     insert into usr_role_rel (usr_id, role_id)
     values
@@ -39,6 +43,5 @@
       #{roleId}
     </foreach>
   </delete>
-
 
 </mapper>

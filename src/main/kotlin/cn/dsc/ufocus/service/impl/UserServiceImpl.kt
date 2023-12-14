@@ -12,11 +12,9 @@ import cn.dsc.ufocus.mapper.UserMapper
 import cn.dsc.ufocus.param.PageInfo
 import cn.dsc.ufocus.param.PageParam
 import cn.dsc.ufocus.param.user.*
-import cn.dsc.ufocus.service.RoleService
-import cn.dsc.ufocus.service.UserCertificateService
-import cn.dsc.ufocus.service.UserRoleRelService
-import cn.dsc.ufocus.service.UserService
+import cn.dsc.ufocus.service.*
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
@@ -26,15 +24,26 @@ import java.time.LocalDateTime
 @Service
 class UserServiceImpl(
     val userMapper: UserMapper,
-    val userCertificateService: UserCertificateService,
-    val roleService: RoleService,
-    val userRoleRelService: UserRoleRelService,
 ) : UserService {
+
+    @Autowired
+    private lateinit var userCertificateService: UserCertificateService
+
+    @Autowired
+    private lateinit var roleService: RoleService
+
+    @Autowired
+    private lateinit var userRoleRelService: UserRoleRelService
+
+    @Autowired
+    private lateinit var rolePermissionRelService: RolePermissionRelService
 
     override fun loadUserByUsername(username: String): UserDetails {
         val entity = userMapper.selectByEmail(username) ?: throw UsernameNotFoundException("获取不到用户")
         val password = userCertificateService.loadPassword(entity.id)
-        return UserDetail(entity.id, entity.emailAddress, password, entity.isLockFlag)
+        val roleIds = userRoleRelService.listRoleIdsByUserId(entity.id)
+        val permissions = rolePermissionRelService.listPermissionsByRoleIds(roleIds)
+        return UserDetail(entity.id, entity.emailAddress, password, entity.isLockFlag, permissions)
     }
 
     override fun listByIds(ids: List<Long>): List<UserOption> {

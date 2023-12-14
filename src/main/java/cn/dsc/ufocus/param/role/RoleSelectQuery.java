@@ -8,8 +8,8 @@ import lombok.*;
  */
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
 public class RoleSelectQuery extends SelectQuery {
 
 }

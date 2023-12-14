@@ -11,4 +11,13 @@
     <!--@mbg.generated-->
     prmsn_id, role_id
   </sql>
+
+  <select id="selectPermissionsByRoleIds" resultType="cn.dsc.ufocus.consts.PermissionCode">
+    select p.prmsn_cd from role_prmsn_rel r
+    inner join prmsn p on r.prmsn_id = p.prmsn_id
+    where r.role_id in
+    <foreach collection="roleIds" item="roleId" open="(" separator="," close=")">
+      #{roleId}
+    </foreach>
+  </select>
 </mapper>

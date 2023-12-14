@@ -22,6 +22,10 @@ class UserRoleRelServiceImpl(
         return items.map(UserRoleRelEntity::toDetail)
     }
 
+    override fun listRoleIdsByUserId(userId: Long): List<Long> {
+        return userRoleRelMapper.selectRoleIdsByUserId(userId)
+    }
+
     @Transactional
     override fun insert(userId: Long, roleIds: List<Long>) {
         userRoleRelMapper.insertByIds(userId, roleIds)

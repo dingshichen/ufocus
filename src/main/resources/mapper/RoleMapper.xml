@@ -28,7 +28,9 @@
   <select id="select" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" /> from role
     <where>
-      
+      <if test="query.chnName != null and query.chnName != ''">
+        and chn_nm like concat('%', #{query.chnName}, '%')
+      </if>
     </where>
   </select>
 </mapper>

@@ -16,14 +16,17 @@ import cn.dsc.ufocus.param.role.*
 import cn.dsc.ufocus.service.RoleService
 import cn.dsc.ufocus.service.UserService
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 class RoleServiceImpl(
     val roleMapper: RoleMapper,
-    val userService: UserService,
 ) : RoleService {
+
+    @Autowired
+    private lateinit var userService: UserService
 
     override fun listByIds(ids: List<Long>): List<RoleOption> {
         val roles = roleMapper.selectBatchIds(ids)

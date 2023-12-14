@@ -1,7 +1,6 @@
 package cn.dsc.ufocus.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,12 +20,12 @@ public class RolePermissionRelEntity {
     /**
      * 许可ID
      */
-    @TableId(value = "prmsn_id", type = IdType.INPUT)
+    @TableField(value = "prmsn_id")
     private Long permissionId;
 
     /**
      * 角色ID
      */
-    @TableId(value = "role_id", type = IdType.INPUT)
+    @TableField(value = "role_id")
     private Long roleId;
 }

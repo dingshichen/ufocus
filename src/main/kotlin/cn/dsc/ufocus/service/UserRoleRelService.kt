@@ -9,6 +9,8 @@ import cn.dsc.ufocus.param.user.UserRoleRel
 
 interface UserRoleRelService : BaseKeyService<Long, UserRoleRel> {
 
+    fun listRoleIdsByUserId(userId: Long): List<Long>
+
     fun insert(userId: Long, roleIds: List<Long>)
 
     fun update(userId: Long, roleIds: List<Long>)

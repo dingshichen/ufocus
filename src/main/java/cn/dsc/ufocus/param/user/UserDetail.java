@@ -1,11 +1,15 @@
 package cn.dsc.ufocus.param.user;
 
 import cn.dsc.ufocus.param.Base;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 带有认证信息的用户详情
@@ -32,16 +36,22 @@ public class UserDetail extends Base implements UserDetails {
      */
     private Boolean isLockFlag;
 
-    public UserDetail(Long id, String emailAddress, String password, Boolean isLockFlag) {
+    /**
+     * 授权
+     */
+    private List<GrantedAuthority> authorities;
+
+    public UserDetail(Long id, String emailAddress, String password, Boolean isLockFlag, List<GrantedAuthority> authorities) {
         super(id);
         this.emailAddress = emailAddress;
         this.password = password;
         this.isLockFlag = isLockFlag;
+        this.authorities = authorities;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
