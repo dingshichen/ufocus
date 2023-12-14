@@ -15,4 +15,20 @@
     <!--@mbg.generated-->
     role_id, chn_nm, crt_usr_id, crt_tm, latest_update_usr_id, latest_update_tm
   </sql>
+
+  <select id="selectBySelectQuery" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from role
+    <where>
+      <if test="query.keyword != null and query.keyword != ''">
+        and chn_nm like concat('%', #{query.keyword}, '%')
+      </if>
+    </where>
+    </select>
+
+  <select id="select" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from role
+    <where>
+      
+    </where>
+  </select>
 </mapper>

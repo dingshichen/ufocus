@@ -4,16 +4,17 @@
 
 package cn.dsc.ufocus.service
 
+import cn.dsc.ufocus.base.service.BaseFillService
 import cn.dsc.ufocus.param.PageInfo
 import cn.dsc.ufocus.param.PageParam
 import cn.dsc.ufocus.param.user.*
 import org.springframework.security.core.userdetails.UserDetailsService
 
-interface UserService : UserDetailsService {
+interface UserService : UserDetailsService, BaseFillService<UserOption> {
 
     fun load(id: Long): User?
 
-    fun list(param: PageParam<UserQuery>): PageInfo<UserItem>
+    fun page(param: PageParam<UserQuery>): PageInfo<UserItem>
 
     fun insert(userInsert: UserInsert): Long
 

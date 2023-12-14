@@ -29,7 +29,7 @@ class UserController(
     @PreAuthorize("hasAuthority('USER_VIEW')")
     @PostMapping("/page")
     fun page(@RequestBody param: PageParam<UserQuery>): R<PageInfo<UserItem>> = success {
-        userService.list(param)
+        userService.page(param)
     }
 
     @PreAuthorize("hasAuthority('USER_MANANGE')")

@@ -4,10 +4,7 @@
 
 package cn.dsc.ufocus.service.impl
 
-import cn.dsc.ufocus.convert.toDetail
-import cn.dsc.ufocus.convert.toInfo
-import cn.dsc.ufocus.convert.toItem
-import cn.dsc.ufocus.convert.toRole
+import cn.dsc.ufocus.convert.*
 import cn.dsc.ufocus.currentUser
 import cn.dsc.ufocus.entity.UserEntity
 import cn.dsc.ufocus.exception.EntityNotFoundException
@@ -40,6 +37,10 @@ class UserServiceImpl(
         return UserDetail(entity.id, entity.emailAddress, password, entity.isLockFlag)
     }
 
+    override fun listByIds(ids: List<Long>): List<UserOption> {
+        return userMapper.selectBatchIds(ids).map(UserEntity::toOption)
+    }
+
     override fun load(id: Long): User? {
         val user = userMapper.selectById(id)?.toDetail() ?: return null
         userRoleRelService.fillListByKey(user, UserItem::getId) { u, r ->
@@ -51,7 +52,7 @@ class UserServiceImpl(
         return user
     }
 
-    override fun list(param: PageParam<UserQuery>): PageInfo<UserItem> {
+    override fun page(param: PageParam<UserQuery>): PageInfo<UserItem> {
         val users = userMapper.select(PageDTO.of(param.page, param.size), param.query).toInfo(UserEntity::toItem)
         userRoleRelService.fillListByKey(users, UserItem::getId) { u, r ->
             u.roles = r.map(UserRoleRel::toRole)

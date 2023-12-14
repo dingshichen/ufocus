@@ -1,7 +1,8 @@
 package cn.dsc.ufocus.param.role;
 
-import cn.dsc.ufocus.param.Base;
 import lombok.*;
+
+import javax.validation.constraints.NotEmpty;
 
 /**
  * @author ding.shichen
@@ -10,10 +11,11 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleOption extends Base {
+public class RoleInsert {
 
     /**
      * 中文名称
      */
+    @NotEmpty
     private String chnName;
 }

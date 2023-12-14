@@ -1,6 +1,6 @@
 package cn.dsc.ufocus.param.role;
 
-import cn.dsc.ufocus.param.Base;
+import cn.dsc.ufocus.param.SelectQuery;
 import lombok.*;
 
 /**
@@ -10,10 +10,6 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleOption extends Base {
+public class RoleSelectQuery extends SelectQuery {
 
-    /**
-     * 中文名称
-     */
-    private String chnName;
 }

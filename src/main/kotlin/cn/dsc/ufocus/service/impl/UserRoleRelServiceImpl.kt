@@ -5,6 +5,7 @@
 package cn.dsc.ufocus.service.impl
 
 import cn.dsc.ufocus.convert.toDetail
+import cn.dsc.ufocus.entity.UserRoleRelEntity
 import cn.dsc.ufocus.mapper.UserRoleRelMapper
 import cn.dsc.ufocus.param.user.UserRoleRel
 import cn.dsc.ufocus.service.UserRoleRelService
@@ -18,7 +19,7 @@ class UserRoleRelServiceImpl(
 
     override fun listByKeys(keys: List<Long>): List<UserRoleRel> {
         val items = userRoleRelMapper.selectByUserIds(keys)
-        return items.map { it.toDetail() }
+        return items.map(UserRoleRelEntity::toDetail)
     }
 
     @Transactional

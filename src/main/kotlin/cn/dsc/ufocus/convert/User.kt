@@ -9,16 +9,10 @@ import cn.dsc.ufocus.param.user.User
 import cn.dsc.ufocus.param.user.UserItem
 import cn.dsc.ufocus.param.user.UserOption
 
-fun UserEntity.toDetail() = User().also {
+fun UserEntity.toOption() = UserOption().also {
     it.id = id
     it.chnName = chnName
     it.isLockFlag = isLockFlag
-    it.emailAddress = emailAddress
-    it.mobilePhoneNumber = mobilePhoneNumber
-    it.createUser = UserOption(id)
-    it.createTime = createTime
-    it.latestUpdateUser = UserOption(id)
-    it.latestUpdateTime = latestUpdateTime
 }
 
 fun UserEntity.toItem() = UserItem().also {
@@ -27,8 +21,21 @@ fun UserEntity.toItem() = UserItem().also {
     it.isLockFlag = isLockFlag
     it.emailAddress = emailAddress
     it.mobilePhoneNumber = mobilePhoneNumber
-    it.createUser = UserOption(id)
+    it.createUser = UserOption(createUserId)
     it.createTime = createTime
-    it.latestUpdateUser = UserOption(id)
+    it.latestUpdateUser = UserOption(latestUpdateUserId)
     it.latestUpdateTime = latestUpdateTime
 }
+
+fun UserEntity.toDetail() = User().also {
+    it.id = id
+    it.chnName = chnName
+    it.isLockFlag = isLockFlag
+    it.emailAddress = emailAddress
+    it.mobilePhoneNumber = mobilePhoneNumber
+    it.createUser = UserOption(createUserId)
+    it.createTime = createTime
+    it.latestUpdateUser = UserOption(latestUpdateUserId)
+    it.latestUpdateTime = latestUpdateTime
+}
+

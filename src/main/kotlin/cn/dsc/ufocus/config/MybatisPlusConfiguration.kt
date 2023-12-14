@@ -13,6 +13,7 @@ import org.apache.ibatis.reflection.MetaObject
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import java.time.LocalDateTime
+import java.util.function.Supplier
 
 @Configuration
 class MybatisPlusConfiguration {
@@ -42,6 +43,16 @@ class MybatisPlusConfiguration {
                 val now = LocalDateTime.now()
                 this.strictUpdateFill(metaObject, "latestUpdateUserId", { currentUser.id }, Long::class.java)
                 this.strictUpdateFill(metaObject, "latestUpdateTime", { now }, LocalDateTime::class.java)
+            }
+
+            /**
+             * 有没有值都填充
+             */
+            override fun strictFillStrategy(metaObject: MetaObject, fieldName: String, fieldVal: Supplier<*>): MetaObjectHandler {
+                fieldVal.get()?.let {
+                    metaObject.setValue(fieldName, it)
+                }
+                return this
             }
         }
     }
