@@ -1,5 +1,6 @@
 package cn.dsc.ufocus.entity;
 
+import cn.dsc.ufocus.consts.ScriptPerformState;
 import cn.dsc.ufocus.entity.base.UpdaterEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -40,6 +41,6 @@ public class DbTicketScriptEntity extends UpdaterEntity {
      * 执行状态
      */
     @TableField(value = "prfm_state")
-    private String performState;
+    private ScriptPerformState performState;
 
 }

@@ -1,5 +1,7 @@
 package cn.dsc.ufocus.entity;
 
+import cn.dsc.ufocus.consts.TicketAuditState;
+import cn.dsc.ufocus.consts.TicketPerformState;
 import cn.dsc.ufocus.entity.base.OperatorEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -58,13 +60,13 @@ public class DbTicketEntity extends OperatorEntity {
      * 审核状态
      */
     @TableField(value = "adt_state")
-    private String auditState;
+    private TicketAuditState auditState;
 
     /**
      * 执行状态
      */
     @TableField(value = "prfm_state")
-    private String performState;
+    private TicketPerformState performState;
 
     /**
      * 文本内容

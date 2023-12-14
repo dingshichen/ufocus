@@ -2,7 +2,7 @@
 // @email   foreverhuiqiao@126.com
 // @date    2023-10-22
 
-package cn.dsc.ufocus.consts
+package cn.dsc.ufocus.base
 
 /**
  * REST 接口响应状态码

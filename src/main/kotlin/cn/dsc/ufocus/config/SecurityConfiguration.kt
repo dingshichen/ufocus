@@ -4,7 +4,7 @@
 
 package cn.dsc.ufocus.config
 
-import cn.dsc.ufocus.consts.RStatus
+import cn.dsc.ufocus.base.RStatus
 import cn.dsc.ufocus.dto.result
 import cn.dsc.ufocus.dto.success
 import cn.dsc.ufocus.service.UserCertificateService
