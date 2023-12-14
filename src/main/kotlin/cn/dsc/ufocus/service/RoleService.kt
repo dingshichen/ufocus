@@ -11,6 +11,8 @@ import cn.dsc.ufocus.param.role.*
 
 interface RoleService : BaseFillService<RoleOption> {
 
+    fun load(id: Long): Role?
+
     fun select(query: RoleSelectQuery): List<RoleOption>
 
     fun page(param: PageParam<RoleQuery>): PageInfo<RoleItem>

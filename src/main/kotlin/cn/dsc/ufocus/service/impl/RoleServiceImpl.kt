@@ -4,6 +4,7 @@
 
 package cn.dsc.ufocus.service.impl
 
+import cn.dsc.ufocus.convert.toDetail
 import cn.dsc.ufocus.convert.toInfo
 import cn.dsc.ufocus.convert.toItem
 import cn.dsc.ufocus.convert.toOption
@@ -16,6 +17,7 @@ import cn.dsc.ufocus.service.RoleService
 import cn.dsc.ufocus.service.UserService
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class RoleServiceImpl(
@@ -26,6 +28,11 @@ class RoleServiceImpl(
     override fun listByIds(ids: List<Long>): List<RoleOption> {
         val roles = roleMapper.selectBatchIds(ids)
         return roles.map(RoleEntity::toOption)
+    }
+
+    override fun load(id: Long): Role? {
+        val entity = roleMapper.selectById(id)
+        return entity?.toDetail()
     }
 
     override fun select(query: RoleSelectQuery): List<RoleOption> {
@@ -39,6 +46,7 @@ class RoleServiceImpl(
         return roles
     }
 
+    @Transactional
     override fun insert(roleInsert: RoleInsert): Long {
         val role = RoleEntity().also {
             it.chnName = roleInsert.chnName
@@ -47,6 +55,7 @@ class RoleServiceImpl(
         return role.id
     }
 
+    @Transactional
     override fun update(roleUpdate: RoleUpdate) {
         val role = roleMapper.selectById(roleUpdate.id)
         role.chnName = roleUpdate.chnName

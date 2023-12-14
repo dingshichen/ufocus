@@ -20,6 +20,12 @@ class RoleController(
     val roleService: RoleService,
 ) {
 
+    @PreAuthorize("hasAuthority('ROLE_VIEW')")
+    @GetMapping("/{id}")
+    fun load(@PathVariable id: Long): R<Role> = success {
+        roleService.load(id)
+    }
+
     @GetMapping("/select")
     fun select(@RequestParam query: RoleSelectQuery): R<List<RoleOption>> = success {
         roleService.select(query)

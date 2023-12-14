@@ -1,13 +1,12 @@
 package cn.dsc.ufocus.param.user;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 /**
  * @author ding.shichen
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 //@NoArgsConstructor
 //@AllArgsConstructor
 public class User extends UserItem {
