@@ -1,25 +1,22 @@
 package cn.dsc.ufocus.entity;
 
+import cn.dsc.ufocus.entity.base.UpdaterEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
+import lombok.*;
 
 /**
  * 数据库工单脚本
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "db_ticket_script")
-public class DbTicketScript {
+public class DbTicketScriptEntity extends UpdaterEntity {
 
     /**
      * 数据库工单脚本ID
@@ -45,15 +42,4 @@ public class DbTicketScript {
     @TableField(value = "prfm_state")
     private String performState;
 
-    /**
-     * 最近更新用户ID
-     */
-    @TableField(value = "latest_update_usr_id")
-    private Long latestUpdateUserId;
-
-    /**
-     * 最近更新时间
-     */
-    @TableField(value = "latest_update_tm")
-    private LocalDateTime latestUpdateTime;
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.dsc.ufocus.mapper.DbTicketScriptXcptnLogMapper">
-  <resultMap id="BaseResultMap" type="cn.dsc.ufocus.entity.DbTicketScriptExceptionLog">
+  <resultMap id="BaseResultMap" type="cn.dsc.ufocus.entity.DbTicketScriptExceptionLogEntity">
     <!--@mbg.generated-->
     <!--@Table db_ticket_script_xcptn_log-->
     <id column="log_id" jdbcType="BIGINT" property="id" />

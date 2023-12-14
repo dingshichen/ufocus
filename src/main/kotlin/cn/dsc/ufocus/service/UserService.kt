@@ -13,12 +13,14 @@ interface UserService : UserDetailsService {
 
     fun load(id: Long): User?
 
-    fun lock(id: Long)
-
     fun list(param: PageParam<UserQuery>): PageInfo<UserItem>
 
     fun insert(userInsert: UserInsert): Long
 
     fun update(userUpdate: UserUpdate)
+
+    fun lock(id: Long)
+
+    fun unlock(id: Long)
 
 }

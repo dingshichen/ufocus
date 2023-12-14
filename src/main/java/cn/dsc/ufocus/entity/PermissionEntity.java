@@ -1,6 +1,7 @@
 package cn.dsc.ufocus.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -9,14 +10,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
-    * 角色许可关系
-    */
+ * 许可
+ */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName(value = "role_prmsn_rel")
-public class RolePermissionRel {
+@TableName(value = "prmsn")
+public class PermissionEntity {
+
     /**
      * 许可ID
      */
@@ -24,8 +26,14 @@ public class RolePermissionRel {
     private Long permissionId;
 
     /**
-     * 角色ID
+     * 许可名称
      */
-    @TableId(value = "role_id", type = IdType.INPUT)
-    private Long roleId;
+    @TableField(value = "prmsn_nm")
+    private String permissionName;
+
+    /**
+     * 许可编码
+     */
+    @TableField(value = "prmsn_cd")
+    private String permissionCode;
 }

@@ -4,13 +4,10 @@
 
 package cn.dsc.ufocus.convert
 
-import cn.dsc.ufocus.currentUser
 import cn.dsc.ufocus.entity.UserEntity
 import cn.dsc.ufocus.param.user.User
-import cn.dsc.ufocus.param.user.UserInsert
 import cn.dsc.ufocus.param.user.UserItem
 import cn.dsc.ufocus.param.user.UserOption
-import java.time.LocalDateTime
 
 fun UserEntity.toDetail() = User().also {
     it.id = id
@@ -34,19 +31,4 @@ fun UserEntity.toItem() = UserItem().also {
     it.createTime = createTime
     it.latestUpdateUser = UserOption(id)
     it.latestUpdateTime = latestUpdateTime
-}
-
-fun UserInsert.toEntity(): UserEntity {
-    val currentUser = currentUser()
-    val now = LocalDateTime.now()
-    return UserEntity().also {
-        it.chnName = chnName
-        it.emailAddress = emailAddress
-        it.mobilePhoneNumber = mobilePhoneNumber
-        it.isLockFlag = false
-        it.createUserId = currentUser.id
-        it.createTime = now
-        it.latestUpdateUserId = currentUser.id
-        it.latestUpdateTime = now
-    }
 }

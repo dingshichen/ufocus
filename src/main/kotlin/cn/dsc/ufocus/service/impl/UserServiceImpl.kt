@@ -4,7 +4,10 @@
 
 package cn.dsc.ufocus.service.impl
 
-import cn.dsc.ufocus.convert.*
+import cn.dsc.ufocus.convert.toDetail
+import cn.dsc.ufocus.convert.toInfo
+import cn.dsc.ufocus.convert.toItem
+import cn.dsc.ufocus.convert.toRole
 import cn.dsc.ufocus.currentUser
 import cn.dsc.ufocus.entity.UserEntity
 import cn.dsc.ufocus.exception.EntityNotFoundException
@@ -48,15 +51,6 @@ class UserServiceImpl(
         return user
     }
 
-    @Transactional
-    override fun lock(id: Long) {
-        val user = userMapper.selectById(id) ?: throw EntityNotFoundException("用户不存在")
-        user.isLockFlag = true
-        user.latestUpdateUserId = currentUser().id
-        user.latestUpdateTime = LocalDateTime.now()
-        userMapper.updateById(user)
-    }
-
     override fun list(param: PageParam<UserQuery>): PageInfo<UserItem> {
         val users = userMapper.select(PageDTO.of(param.page, param.size), param.query).toInfo(UserEntity::toItem)
         userRoleRelService.fillListByKey(users, UserItem::getId) { u, r ->
@@ -70,7 +64,12 @@ class UserServiceImpl(
 
     @Transactional
     override fun insert(userInsert: UserInsert): Long {
-        val entity = userInsert.toEntity()
+        val entity = UserEntity().also {
+            it.chnName = userInsert.chnName
+            it.emailAddress = userInsert.emailAddress
+            it.mobilePhoneNumber = userInsert.mobilePhoneNumber
+            it.isLockFlag = false
+        }
         userMapper.insert(entity)
         userCertificateService.insert(entity.id, userInsert.pwd)
         userRoleRelService.insert(entity.id, userInsert.roleIds)
@@ -83,9 +82,23 @@ class UserServiceImpl(
         user.chnName = userUpdate.chnName
         user.mobilePhoneNumber = userUpdate.mobilePhoneNumber
         user.emailAddress = userUpdate.emailAddress
+        userMapper.updateById(user)
+        userRoleRelService.update(userUpdate.id, userUpdate.roleIds)
+    }
+
+    @Transactional
+    override fun lock(id: Long) {
+        val user = userMapper.selectById(id) ?: throw EntityNotFoundException("用户不存在")
+        user.isLockFlag = true
         user.latestUpdateUserId = currentUser().id
         user.latestUpdateTime = LocalDateTime.now()
         userMapper.updateById(user)
-        userRoleRelService.update(userUpdate.id, userUpdate.roleIds)
+    }
+
+    @Transactional
+    override fun unlock(id: Long) {
+        val user = userMapper.selectById(id) ?: throw EntityNotFoundException("用户不存在")
+        user.isLockFlag = false
+        userMapper.updateById(user)
     }
 }

@@ -38,7 +38,7 @@ class UserController(
         userService.insert(userInsert)
     }
 
-    @PreAuthorize("hasAuthority('USER_MANANGE')")
+    @PreAuthorize("hasAuthority('USER_MANANGE') or authentication.principal.id==#userUpdate.id")
     @PostMapping("/update")
     fun update(@RequestBody @Validated userUpdate: UserUpdate): R<*> = success {
         userService.update(userUpdate)
@@ -48,5 +48,11 @@ class UserController(
     @PostMapping("/lock/{id}")
     fun lock(@PathVariable("id") id: Long): R<*> = success {
         userService.lock(id)
+    }
+
+    @PreAuthorize("hasAuthority('USER_MANANGE')")
+    @PostMapping("/unlock/{id}")
+    fun unlock(@PathVariable("id") id: Long): R<*> = success {
+        userService.unlock(id)
     }
 }

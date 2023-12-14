@@ -1,5 +1,6 @@
 package cn.dsc.ufocus.entity;
 
+import cn.dsc.ufocus.entity.base.OperatorEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -9,8 +10,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 /**
  * 数据库实例
  */
@@ -19,7 +18,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "db_inst")
-public class DbInstance {
+public class DbInstanceEntity extends OperatorEntity {
 
     /**
      * 数据库实例ID
@@ -56,28 +55,4 @@ public class DbInstance {
      */
     @TableField(value = "pwd")
     private String pwd;
-
-    /**
-     * 创建用户ID
-     */
-    @TableField(value = "crt_usr_id")
-    private Long createUserId;
-
-    /**
-     * 创建时间
-     */
-    @TableField(value = "crt_tm")
-    private LocalDateTime createTime;
-
-    /**
-     * 最近更新用户ID
-     */
-    @TableField(value = "latest_update_usr_id")
-    private Long latestUpdateUserId;
-
-    /**
-     * 最近更新时间
-     */
-    @TableField(value = "latest_update_tm")
-    private LocalDateTime latestUpdateTime;
 }

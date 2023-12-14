@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.dsc.ufocus.mapper.DbGrpRelMapper">
-  <resultMap id="BaseResultMap" type="cn.dsc.ufocus.entity.DbGroupRel">
+  <resultMap id="BaseResultMap" type="cn.dsc.ufocus.entity.DbGroupRelEntity">
     <!--@mbg.generated-->
     <!--@Table db_grp_rel-->
     <id column="db_grp_id" jdbcType="BIGINT" property="dbGroupId" />

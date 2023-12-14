@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "db_grp_rel")
-public class DbGroupRel {
+public class DbGroupRelEntity {
 
     /**
      * 数据库分组ID
