@@ -32,16 +32,16 @@ class MybatisPlusConfiguration {
             override fun insertFill(metaObject: MetaObject) {
                 val currentUser = currentUser()
                 val now = LocalDateTime.now()
-                this.strictInsertFill(metaObject, "createUserId", { currentUser.id }, Long::class.java)
+                this.strictInsertFill(metaObject, "createUserId", { currentUser.id }, Long::class.javaObjectType)
                 this.strictInsertFill(metaObject, "createTime", { now }, LocalDateTime::class.java)
-                this.strictInsertFill(metaObject, "latestUpdateUserId", { currentUser.id }, Long::class.java)
+                this.strictInsertFill(metaObject, "latestUpdateUserId", { currentUser.id }, Long::class.javaObjectType)
                 this.strictInsertFill(metaObject, "latestUpdateTime", { now }, LocalDateTime::class.java)
             }
 
             override fun updateFill(metaObject: MetaObject) {
                 val currentUser = currentUser()
                 val now = LocalDateTime.now()
-                this.strictUpdateFill(metaObject, "latestUpdateUserId", { currentUser.id }, Long::class.java)
+                this.strictUpdateFill(metaObject, "latestUpdateUserId", { currentUser.id }, Long::class.javaObjectType)
                 this.strictUpdateFill(metaObject, "latestUpdateTime", { now }, LocalDateTime::class.java)
             }
 
