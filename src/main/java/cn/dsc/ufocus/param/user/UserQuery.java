@@ -13,6 +13,8 @@ import lombok.*;
 @AllArgsConstructor
 public class UserQuery extends Query {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * 中文名称
      */

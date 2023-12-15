@@ -2,6 +2,8 @@ package cn.dsc.ufocus.param;
 
 import lombok.*;
 
+import java.io.Serializable;
+
 /**
  * @author ding.shichen
  */
@@ -10,7 +12,9 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PageParam<Q extends Query> {
+public class PageParam<Q extends Query> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 查询参数

@@ -39,6 +39,9 @@ interface BaseFillService<Option : IBase> {
     }
 
     fun <E> fillById(source: List<E>, getId: (source: E) -> Long?, consumer: (source: E, option: Option?) -> Unit) {
+        if (source.isEmpty()) {
+            return
+        }
         val map: Map<Long, Option> = mapByIds(source.mapNotNull(getId))
         source.forEach {
             getId(it)?.let { id -> consumer(it, map[id]) }
@@ -66,6 +69,9 @@ interface BaseFillService<Option : IBase> {
     }
 
     fun <E> fillListById(source: List<E>, getIds: (source: E) -> List<Long>?, consumer: (source: E, option: List<Option>) -> Unit) {
+        if (source.isEmpty()) {
+            return
+        }
         val itemWithIdMap: Map<E, List<Long>?> = source.associateWith(getIds)
         val idWithOptionMap: Map<Long, Option> = mapByIds(itemWithIdMap.values.filterNotNull().flatten())
         source.forEach {

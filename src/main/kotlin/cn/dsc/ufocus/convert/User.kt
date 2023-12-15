@@ -21,10 +21,6 @@ fun UserEntity.toItem() = UserItem().also {
     it.isLockFlag = isLockFlag
     it.emailAddress = emailAddress
     it.mobilePhoneNumber = mobilePhoneNumber
-    it.createUser = UserOption(createUserId)
-    it.createTime = createTime
-    it.latestUpdateUser = UserOption(latestUpdateUserId)
-    it.latestUpdateTime = latestUpdateTime
 }
 
 fun UserEntity.toDetail() = User().also {

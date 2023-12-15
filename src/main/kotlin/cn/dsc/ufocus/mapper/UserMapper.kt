@@ -14,6 +14,6 @@ interface UserMapper : BaseMapper<UserEntity> {
 
     fun selectByEmail(@Param("emailAddress") emailAddress: String): UserEntity?
 
-    fun select(@Param("page") page: IPage<UserEntity>, @Param("query") query: UserQuery): IPage<UserEntity>
+    fun selectByQuery(@Param("page") page: IPage<UserEntity>, @Param("query") query: UserQuery): IPage<UserEntity>
 
 }

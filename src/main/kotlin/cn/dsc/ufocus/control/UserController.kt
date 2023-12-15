@@ -6,6 +6,7 @@ package cn.dsc.ufocus.control
 
 import cn.dsc.ufocus.consts.PRMS_USER_MANAGE
 import cn.dsc.ufocus.consts.PRMS_USER_VIEW
+import cn.dsc.ufocus.currentUser
 import cn.dsc.ufocus.dto.R
 import cn.dsc.ufocus.dto.success
 import cn.dsc.ufocus.param.PageInfo
@@ -26,6 +27,11 @@ class UserController(
     @GetMapping("/{id}")
     fun load(@PathVariable("id") id: Long): R<User> = success {
         userService.load(id)
+    }
+
+    @GetMapping("/current")
+    fun current(): R<User> = success {
+        userService.load(currentUser().id)
     }
 
     @PreAuthorize("hasAuthority('$PRMS_USER_VIEW')")

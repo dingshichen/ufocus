@@ -29,7 +29,7 @@
     from usr where email_adrs = #{emailAddress}
   </select>
 
-  <select id="select" resultMap="BaseResultMap">
+  <select id="selectByQuery" resultMap="BaseResultMap">
     select <include refid="Join_Column" />
     from usr u
     <if test="query.roleId != null">
@@ -49,5 +49,6 @@
         and r.role_id = #{query.roleId}
       </if>
     </where>
+    order by u.usr_id desc
   </select>
 </mapper>

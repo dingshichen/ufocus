@@ -31,6 +31,9 @@ interface BaseKeyService<K, Item : IKeyBase<K>> {
     }
 
     fun <Source> fillByKey(source: List<Source>, getKey: (source: Source) -> K?, consumer: (source: Source, item: Item?) -> Unit) {
+        if (source.isEmpty()) {
+            return
+        }
         val map = listByKeys(source.mapNotNull(getKey)).associateBy { it.key }
         source.forEach {
             getKey(it)?.let { k ->
@@ -48,6 +51,9 @@ interface BaseKeyService<K, Item : IKeyBase<K>> {
     }
 
     fun <Source> fillByKeys(source: List<Source>, getKeys: (source: Source) -> List<K>?, consumer: (source: Source, items: List<Item>) -> Unit) {
+        if (source.isEmpty()) {
+            return
+        }
         val map = listByKeys(source.flatMap { getKeys(it) ?: emptyList() }).groupBy { it.key }
         source.forEach {
             getKeys(it)?.let { ks ->
@@ -65,6 +71,9 @@ interface BaseKeyService<K, Item : IKeyBase<K>> {
     }
 
     fun <Source> fillListByKey(source: List<Source>, getKey: (source: Source) -> K?, consumer: (source: Source, items: List<Item>) -> Unit) {
+        if (source.isEmpty()) {
+            return
+        }
         val map = listByKeys(source.mapNotNull(getKey)).groupBy { it.key }
         source.forEach {
             getKey(it)?.let { k ->

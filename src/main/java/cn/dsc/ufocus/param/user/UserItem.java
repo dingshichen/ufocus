@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -33,23 +32,4 @@ public class UserItem extends UserOption {
      */
     private List<RoleOption> roles;
 
-    /**
-     * 创建用户
-     */
-    private UserOption createUser;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 最近更新用户
-     */
-    private UserOption latestUpdateUser;
-
-    /**
-     * 最近更新时间
-     */
-    private LocalDateTime latestUpdateTime;
 }
