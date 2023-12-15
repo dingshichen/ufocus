@@ -4,6 +4,8 @@
 
 package cn.dsc.ufocus.control
 
+import cn.dsc.ufocus.consts.PRMS_ROLE_MANAGE
+import cn.dsc.ufocus.consts.PRMS_ROLE_VIEW
 import cn.dsc.ufocus.dto.R
 import cn.dsc.ufocus.dto.success
 import cn.dsc.ufocus.param.PageInfo
@@ -20,7 +22,7 @@ class RoleController(
     val roleService: RoleService,
 ) {
 
-    @PreAuthorize("hasAuthority('ROLE_VIEW')")
+    @PreAuthorize("hasAuthority('$PRMS_ROLE_VIEW')")
     @GetMapping("/{id}")
     fun load(@PathVariable id: Long): R<Role> = success {
         roleService.load(id)
@@ -31,19 +33,19 @@ class RoleController(
         roleService.select(query)
     }
 
-    @PreAuthorize("hasAuthority('ROLE_VIEW')")
+    @PreAuthorize("hasAuthority('$PRMS_ROLE_VIEW')")
     @PostMapping("/page")
     fun page(@RequestBody param: PageParam<RoleQuery>): R<PageInfo<RoleItem>> = success {
         roleService.page(param)
     }
 
-    @PreAuthorize("hasAuthority('ROLE_MANAGE')")
+    @PreAuthorize("hasAuthority('$PRMS_ROLE_MANAGE')")
     @PostMapping("/insert")
     fun insert(@RequestBody @Validated roleInsert: RoleInsert): R<Long> = success {
         roleService.insert(roleInsert)
     }
 
-    @PreAuthorize("hasAuthority('ROLE_MANAGE')")
+    @PreAuthorize("hasAuthority('$PRMS_ROLE_MANAGE')")
     @PostMapping("/update")
     fun update(@RequestBody @Validated roleUpdate: RoleUpdate): R<*> = success {
         roleService.update(roleUpdate)
