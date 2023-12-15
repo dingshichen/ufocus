@@ -1,13 +1,13 @@
 package cn.dsc.ufocus.service.impl
 
 import cn.dsc.ufocus.UfocusApplicationTests
+import cn.dsc.ufocus.WithAdminUserDetail
 import cn.dsc.ufocus.param.user.UserInsert
 import cn.dsc.ufocus.param.user.UserUpdate
 import cn.dsc.ufocus.service.UserService
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.security.test.context.support.WithUserDetails
 import org.springframework.transaction.annotation.Transactional
 
 class UserServiceImplTest : UfocusApplicationTests() {
@@ -23,14 +23,14 @@ class UserServiceImplTest : UfocusApplicationTests() {
         assertNotNull(user)
     }
 
-    @WithUserDetails("foreverhuiqiao@126.com")
+    @WithAdminUserDetail
     @Transactional
     @Test
     fun insert() {
         userService.insert(UserInsert("周楷", "18800001234", "zhoukai@enhe.com", listOf(10000000L), "123456"))
     }
 
-    @WithUserDetails("foreverhuiqiao@126.com")
+    @WithAdminUserDetail
     @Transactional
     @Test
     fun update() {
@@ -44,14 +44,14 @@ class UserServiceImplTest : UfocusApplicationTests() {
         userService.update(userUpdate)
     }
 
-    @WithUserDetails("foreverhuiqiao@126.com")
+    @WithAdminUserDetail
     @Transactional
     @Test
     fun lock() {
         userService.lock(userId)
     }
 
-    @WithUserDetails("foreverhuiqiao@126.com")
+    @WithAdminUserDetail
     @Transactional
     @Test
     fun unlock() {
