@@ -29,7 +29,7 @@ class RoleController(
     }
 
     @GetMapping("/select")
-    fun select(@RequestParam query: RoleSelectQuery): R<List<RoleOption>> = success {
+    fun select(query: RoleSelectQuery): R<List<RoleOption>> = success {
         roleService.select(query)
     }
 

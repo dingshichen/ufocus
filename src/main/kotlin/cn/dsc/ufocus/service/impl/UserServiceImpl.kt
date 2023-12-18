@@ -58,6 +58,8 @@ class UserServiceImpl(
         roleService.fillList(user, UserItem::getRoles) { u, r ->
             u.roles = r
         }
+        this.fill(user, User::getCreateUser, User::setCreateUser)
+        this.fill(user, User::getLatestUpdateUser, User::setLatestUpdateUser)
         return user
     }
 
