@@ -55,9 +55,7 @@ class UserServiceImpl(
         userRoleRelService.fillListByKey(user, UserItem::getId) { u, r ->
             u.roles = r.map(UserRoleRel::toRole)
         }
-        roleService.fillList(user, UserItem::getRoles) { u, r ->
-            u.roles = r
-        }
+        roleService.fillList(user, UserItem::getRoles, UserItem::setRoles)
         this.fill(user, User::getCreateUser, User::setCreateUser)
         this.fill(user, User::getLatestUpdateUser, User::setLatestUpdateUser)
         return user
@@ -68,9 +66,7 @@ class UserServiceImpl(
         userRoleRelService.fillListByKey(users, UserItem::getId) { u, r ->
             u.roles = r.map(UserRoleRel::toRole)
         }
-        roleService.fillList(users, UserItem::getRoles) { u, r ->
-            u.roles = r
-        }
+        roleService.fillList(users, UserItem::getRoles, UserItem::setRoles)
         return users
     }
 
