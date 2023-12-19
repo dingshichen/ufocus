@@ -51,14 +51,14 @@ class UserServiceImpl(
     }
 
     override fun load(id: Long): User? {
-        val user = userMapper.selectById(id)?.toDetail() ?: return null
-        userRoleRelService.fillListByKey(user, UserItem::getId) { u, r ->
-            u.roles = r.map(UserRoleRel::toRole)
+        return userMapper.selectById(id)?.toDetail()?.also {
+            userRoleRelService.fillListByKey(it, UserItem::getId) { u, r ->
+                u.roles = r.map(UserRoleRel::toRole)
+            }
+            roleService.fillList(it, UserItem::getRoles, UserItem::setRoles)
+            this.fill(it, User::getCreateUser, User::setCreateUser)
+            this.fill(it, User::getLatestUpdateUser, User::setLatestUpdateUser)
         }
-        roleService.fillList(user, UserItem::getRoles, UserItem::setRoles)
-        this.fill(user, User::getCreateUser, User::setCreateUser)
-        this.fill(user, User::getLatestUpdateUser, User::setLatestUpdateUser)
-        return user
     }
 
     override fun page(param: PageParam<UserQuery>): PageInfo<UserItem> {

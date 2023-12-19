@@ -34,8 +34,10 @@ class RoleServiceImpl(
     }
 
     override fun load(id: Long): Role? {
-        val entity = roleMapper.selectById(id)
-        return entity?.toDetail()
+        return roleMapper.selectById(id)?.toDetail()?.apply {
+            userService.fill(this, Role::getCreateUser, Role::setCreateUser)
+            userService.fill(this, Role::getLatestUpdateUser, Role::setLatestUpdateUser)
+        }
     }
 
     override fun select(query: RoleSelectQuery): List<RoleOption> {
@@ -47,6 +49,11 @@ class RoleServiceImpl(
         val roles = roleMapper.select(PageDTO.of(param.page, param.size), param.query).toInfo(RoleEntity::toItem)
         userService.fill(roles, RoleItem::getCreateUser, RoleItem::setCreateUser)
         return roles
+    }
+
+    @Transactional
+    override fun delete(id: Long) {
+        roleMapper.deleteById(id)
     }
 
     @Transactional

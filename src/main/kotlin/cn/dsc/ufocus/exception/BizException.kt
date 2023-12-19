@@ -7,3 +7,5 @@ package cn.dsc.ufocus.exception
 class EntityNotFoundException(message: String? = null) : RuntimeException(message)
 
 class CurrentUserNotFoundException(message: String? = null) : RuntimeException(message)
+
+class OperationDeniedException(message: String? = null) : RuntimeException(message)

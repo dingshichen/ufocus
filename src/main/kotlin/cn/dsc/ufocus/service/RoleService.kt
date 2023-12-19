@@ -20,4 +20,6 @@ interface RoleService : BaseFillService<RoleOption> {
     fun insert(roleInsert: RoleInsert): Long
 
     fun update(roleUpdate: RoleUpdate)
+
+    fun delete(id: Long)
 }

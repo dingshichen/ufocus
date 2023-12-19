@@ -8,10 +8,12 @@ import cn.dsc.ufocus.consts.PRMS_ROLE_MANAGE
 import cn.dsc.ufocus.consts.PRMS_ROLE_VIEW
 import cn.dsc.ufocus.dto.R
 import cn.dsc.ufocus.dto.success
+import cn.dsc.ufocus.exception.OperationDeniedException
 import cn.dsc.ufocus.param.PageInfo
 import cn.dsc.ufocus.param.PageParam
 import cn.dsc.ufocus.param.role.*
 import cn.dsc.ufocus.service.RoleService
+import cn.dsc.ufocus.service.UserRoleRelService
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 class RoleController(
     val roleService: RoleService,
+    val userRoleRelService: UserRoleRelService,
 ) {
 
     @PreAuthorize("hasAuthority('$PRMS_ROLE_VIEW')")
@@ -49,6 +52,16 @@ class RoleController(
     @PostMapping("/update")
     fun update(@RequestBody @Validated roleUpdate: RoleUpdate): R<*> = success {
         roleService.update(roleUpdate)
+    }
+
+    @PreAuthorize("hasAuthority('$PRMS_ROLE_MANAGE')")
+    @DeleteMapping("/{id}")
+    fun delete(@PathVariable id: Long): R<*> = success {
+        val hasUser = userRoleRelService.existByRoleId(id)
+        if (hasUser) {
+            throw OperationDeniedException("该角色下仍有用户数据，不允许删除")
+        }
+        roleService.delete(id)
     }
 
 }

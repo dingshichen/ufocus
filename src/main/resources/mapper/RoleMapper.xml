@@ -23,6 +23,7 @@
         and chn_nm like concat('%', #{query.keyword}, '%')
       </if>
     </where>
+    order by role_id desc
     </select>
 
   <select id="select" resultMap="BaseResultMap">
@@ -32,5 +33,6 @@
         and chn_nm like concat('%', #{query.chnName}, '%')
       </if>
     </where>
+    order by role_id desc
   </select>
 </mapper>

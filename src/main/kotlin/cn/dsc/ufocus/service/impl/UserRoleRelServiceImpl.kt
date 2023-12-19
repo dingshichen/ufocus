@@ -26,6 +26,10 @@ class UserRoleRelServiceImpl(
         return userRoleRelMapper.selectRoleIdsByUserId(userId)
     }
 
+    override fun existByRoleId(roleId: Long): Boolean {
+        return userRoleRelMapper.countByRoleId(roleId) > 0
+    }
+
     @Transactional
     override fun insert(userId: Long, roleIds: List<Long>) {
         userRoleRelMapper.insertByIds(userId, roleIds)
