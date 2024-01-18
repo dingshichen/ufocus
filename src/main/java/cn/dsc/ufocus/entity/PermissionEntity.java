@@ -23,7 +23,7 @@ public class PermissionEntity {
      * 许可ID
      */
     @TableId(value = "prmsn_id", type = IdType.INPUT)
-    private Long permissionId;
+    private Long id;
 
     /**
      * 许可名称

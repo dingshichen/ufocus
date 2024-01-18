@@ -12,4 +12,6 @@ import org.apache.ibatis.annotations.Param
 interface RolePermissionRelMapper : BaseMapper<RolePermissionRelEntity> {
 
     fun selectPermissionsByRoleIds(@Param("roleIds") roleIds: List<Long>): List<PermissionCode>
+
+    fun selectByRoleId(@Param("roleId") roleId: Long): List<RolePermissionRelEntity>
 }

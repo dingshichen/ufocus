@@ -20,4 +20,11 @@
       #{roleId}
     </foreach>
   </select>
+
+  <select id="selectByRoleId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from role_prmsn_rel
+    <where>
+      role_id = #{roleId}
+    </where>
+    </select>
 </mapper>

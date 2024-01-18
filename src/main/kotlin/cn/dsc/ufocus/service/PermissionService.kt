@@ -4,5 +4,11 @@
 
 package cn.dsc.ufocus.service
 
-interface PermissionService {
+import cn.dsc.ufocus.base.service.BaseFillService
+import cn.dsc.ufocus.param.permission.PermissionOption
+import cn.dsc.ufocus.param.permission.PermissionSelectQuery
+
+interface PermissionService : BaseFillService<PermissionOption> {
+
+    fun select(query: PermissionSelectQuery): List<PermissionOption>
 }

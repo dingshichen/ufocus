@@ -5,6 +5,7 @@
 package cn.dsc.ufocus.service
 
 import cn.dsc.ufocus.consts.PermissionCode
+import cn.dsc.ufocus.param.permission.PermissionOption
 
 interface RolePermissionRelService {
 
@@ -13,4 +14,6 @@ interface RolePermissionRelService {
      * @return 权限编码列表
      */
     fun listPermissionsByRoleIds(roleIds: List<Long>): List<PermissionCode>
+
+    fun selectByRoleId(roleId: Long): List<PermissionOption>
 }

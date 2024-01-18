@@ -11,7 +11,9 @@ import cn.dsc.ufocus.dto.success
 import cn.dsc.ufocus.exception.OperationDeniedException
 import cn.dsc.ufocus.param.PageInfo
 import cn.dsc.ufocus.param.PageParam
+import cn.dsc.ufocus.param.permission.PermissionOption
 import cn.dsc.ufocus.param.role.*
+import cn.dsc.ufocus.service.RolePermissionRelService
 import cn.dsc.ufocus.service.RoleService
 import cn.dsc.ufocus.service.UserRoleRelService
 import org.springframework.security.access.prepost.PreAuthorize
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.*
 class RoleController(
     val roleService: RoleService,
     val userRoleRelService: UserRoleRelService,
+    val rolePermissionRelService: RolePermissionRelService,
 ) {
 
     @PreAuthorize("hasAuthority('$PRMS_ROLE_VIEW')")
@@ -64,4 +67,9 @@ class RoleController(
         roleService.delete(id)
     }
 
+    @PreAuthorize("hasAuthority('$PRMS_ROLE_VIEW')")
+    @GetMapping("/permission/{roleId}")
+    fun permission(@PathVariable("roleId") roleId: Long): R<List<PermissionOption>> = success {
+        rolePermissionRelService.selectByRoleId(roleId)
+    }
 }

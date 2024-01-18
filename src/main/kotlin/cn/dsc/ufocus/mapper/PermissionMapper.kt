@@ -5,7 +5,11 @@
 package cn.dsc.ufocus.mapper
 
 import cn.dsc.ufocus.entity.PermissionEntity
+import cn.dsc.ufocus.param.permission.PermissionSelectQuery
 import com.baomidou.mybatisplus.core.mapper.BaseMapper
+import org.apache.ibatis.annotations.Param
 
 interface PermissionMapper : BaseMapper<PermissionEntity> {
+
+    fun selectByQuery(@Param("query") query: PermissionSelectQuery): List<PermissionEntity>
 }

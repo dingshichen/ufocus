@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="cn.dsc.ufocus.entity.PermissionEntity">
     <!--@mbg.generated-->
     <!--@Table prmsn-->
-    <id column="prmsn_id" jdbcType="BIGINT" property="permissionId" />
+    <id column="prmsn_id" jdbcType="BIGINT" property="id" />
     <result column="prmsn_nm" jdbcType="VARCHAR" property="permissionName" />
     <result column="prmsn_cd" jdbcType="VARCHAR" property="permissionCode" />
   </resultMap>
@@ -12,4 +12,13 @@
     <!--@mbg.generated-->
     prmsn_id, prmsn_nm, prmsn_cd
   </sql>
+
+  <select id="selectByQuery" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from prmsn
+    <where>
+      <if test="query.keyword != null and query.keyword != ''">
+        and prmsn_nm like concat('%', #{query.keyword}, '%')
+      </if>
+    </where>
+  </select>
 </mapper>
