@@ -11,6 +11,7 @@ import cn.dsc.ufocus.service.PermissionService
 import cn.dsc.ufocus.service.RolePermissionRelService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class RolePermissionRelServiceImpl(
@@ -34,5 +35,32 @@ class RolePermissionRelServiceImpl(
             s.permissionName = o?.permissionName
         }
         return options
+    }
+
+    @Transactional
+    override fun insertBatch(roleId: Long, permissionIds: List<Long>) {
+        rolePermissionRelMapper.insertBatch(roleId, permissionIds)
+    }
+
+    @Transactional
+    override fun replace(roleId: Long, permissionIds: List<Long>) {
+        val beforePermissionIds = rolePermissionRelMapper.selectPermissionIdsByRoleId(roleId)
+        // 新增集合
+        permissionIds.filter { it !in beforePermissionIds }.let {
+            if (it.isNotEmpty()) {
+                rolePermissionRelMapper.insertBatch(roleId, it)
+            }
+        }
+        // 删除集合
+        beforePermissionIds.filter { it !in permissionIds }.let {
+            if (it.isNotEmpty()) {
+                rolePermissionRelMapper.deletePermissions(roleId, it)
+            }
+        }
+    }
+
+    @Transactional
+    override fun deleteByRoleId(roleId: Long) {
+        rolePermissionRelMapper.deleteByRoleId(roleId)
     }
 }

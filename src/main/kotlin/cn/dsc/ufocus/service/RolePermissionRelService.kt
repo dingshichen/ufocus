@@ -16,4 +16,19 @@ interface RolePermissionRelService {
     fun listPermissionsByRoleIds(roleIds: List<Long>): List<PermissionCode>
 
     fun selectByRoleId(roleId: Long): List<PermissionOption>
+
+    /**
+     * 批量新增
+     */
+    fun insertBatch(roleId: Long, permissionIds: List<Long>)
+
+    /**
+     * 更新权限，保存新增，删除不存在的
+     */
+    fun replace(roleId: Long, permissionIds: List<Long>)
+
+    /**
+     * 删除角色下所有权限
+     */
+    fun deleteByRoleId(roleId: Long)
 }

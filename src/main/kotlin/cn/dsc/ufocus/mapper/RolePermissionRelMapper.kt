@@ -14,4 +14,12 @@ interface RolePermissionRelMapper : BaseMapper<RolePermissionRelEntity> {
     fun selectPermissionsByRoleIds(@Param("roleIds") roleIds: List<Long>): List<PermissionCode>
 
     fun selectByRoleId(@Param("roleId") roleId: Long): List<RolePermissionRelEntity>
+
+    fun selectPermissionIdsByRoleId(@Param("roleId") roleId: Long): List<Long>
+
+    fun insertBatch(@Param("roleId") roleId: Long, @Param("permissionIds") permissionIds: List<Long>)
+
+    fun deletePermissions(@Param("roleId") roleId: Long, @Param("permissionIds") permissionIds: List<Long>)
+
+    fun deleteByRoleId(@Param("roleId") roleId: Long)
 }

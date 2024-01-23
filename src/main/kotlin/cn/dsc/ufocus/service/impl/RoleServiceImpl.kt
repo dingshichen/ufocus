@@ -13,6 +13,7 @@ import cn.dsc.ufocus.mapper.RoleMapper
 import cn.dsc.ufocus.param.PageInfo
 import cn.dsc.ufocus.param.PageParam
 import cn.dsc.ufocus.param.role.*
+import cn.dsc.ufocus.service.RolePermissionRelService
 import cn.dsc.ufocus.service.RoleService
 import cn.dsc.ufocus.service.UserService
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO
@@ -23,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class RoleServiceImpl(
     val roleMapper: RoleMapper,
+    val rolePermissionRelService: RolePermissionRelService,
 ) : RoleService {
 
     @Autowired
@@ -54,6 +56,7 @@ class RoleServiceImpl(
     @Transactional
     override fun delete(id: Long) {
         roleMapper.deleteById(id)
+        rolePermissionRelService.deleteByRoleId(id)
     }
 
     @Transactional
@@ -62,6 +65,7 @@ class RoleServiceImpl(
             it.chnName = roleInsert.chnName
         }
         roleMapper.insert(role)
+        rolePermissionRelService.insertBatch(role.id, roleInsert.permissionIds)
         return role.id
     }
 
@@ -70,5 +74,6 @@ class RoleServiceImpl(
         val role = roleMapper.selectById(roleUpdate.id)
         role.chnName = roleUpdate.chnName
         roleMapper.updateById(role)
+        rolePermissionRelService.replace(roleUpdate.id, roleUpdate.permissionIds)
     }
 }

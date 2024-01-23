@@ -27,4 +27,31 @@
       role_id = #{roleId}
     </where>
     </select>
+
+  <select id="selectPermissionIdsByRoleId" resultType="java.lang.Long">
+    select prmsn_id from role_prmsn_rel where role_id = #{roleId}
+  </select>
+
+  <insert id="insertBatch">
+    insert into role_prmsn_rel (prmsn_id, role_id)
+    values
+    <foreach collection="permissionIds" item="permissionId" separator=",">
+      (#{permissionId}, #{roleId})
+    </foreach>
+  </insert>
+
+  <delete id="deletePermissions">
+    delete from role_prmsn_rel
+    <where>
+      role_id = #{roleId}
+      and prmsn_id in
+      <foreach collection="permissionIds" item="permissionId" open="(" separator="," close=")">
+        #{permissionId}
+      </foreach>
+    </where>
+  </delete>
+
+  <delete id="deleteByRoleId">
+    delete from role_prmsn_rel where role_id = #{roleId}
+  </delete>
 </mapper>
