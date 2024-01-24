@@ -51,4 +51,13 @@
     </where>
     order by u.usr_id desc
   </select>
+
+  <select id="select" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from usr
+    <where>
+      <if test="query.keyword != null and query.keyword != ''">
+        and chn_nm like concat('%', #{query.keyword}, '%')
+      </if>
+    </where>
+    </select>
 </mapper>

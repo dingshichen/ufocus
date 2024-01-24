@@ -14,6 +14,8 @@ interface UserService : UserDetailsService, BaseFillService<UserOption> {
 
     fun load(id: Long): User?
 
+    fun select(query: UserSelectQuery): List<UserOption>
+
     fun page(param: PageParam<UserQuery>): PageInfo<UserItem>
 
     fun insert(userInsert: UserInsert): Long
@@ -21,7 +23,6 @@ interface UserService : UserDetailsService, BaseFillService<UserOption> {
     fun update(userUpdate: UserUpdate)
 
     fun lock(id: Long)
-
     fun unlock(id: Long)
 
 }

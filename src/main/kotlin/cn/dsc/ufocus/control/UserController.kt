@@ -34,6 +34,11 @@ class UserController(
         userService.load(currentUser().id)
     }
 
+    @GetMapping("/select")
+    fun select(query: UserSelectQuery): R<List<UserOption>> = success {
+        userService.select(query)
+    }
+
     @PreAuthorize("hasAuthority('$PRMS_USER_VIEW')")
     @PostMapping("/page")
     fun page(@RequestBody param: PageParam<UserQuery>): R<PageInfo<UserItem>> = success {
