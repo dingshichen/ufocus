@@ -1,12 +1,12 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("org.springframework.boot") version "2.7.16"
     id("io.spring.dependency-management") version "1.0.15.RELEASE"
-    kotlin("jvm") version "1.9.10"
-    kotlin("plugin.spring") version "1.9.10"
-    kotlin("plugin.lombok") version "1.9.10"
-    id("io.freefair.lombok") version "8.1.0"
+    kotlin("jvm") version "2.1.0"
+    kotlin("plugin.spring") version "2.1.0"
+    kotlin("plugin.lombok") version "2.1.0"
+    id("io.freefair.lombok") version "8.10"
 }
 
 group = "cn.dsc"
@@ -24,9 +24,29 @@ configurations {
 
 repositories {
     maven {
-        setUrl("https://maven.aliyun.com/repository/public/")
+        setUrl("https://repo.huaweicloud.com/repository/maven/")
     }
-    mavenLocal()
+    maven {
+        setUrl("https://maven.aliyun.com/repository/public")
+    }
+    maven {
+        setUrl("https://maven.aliyun.com/repository/central")
+    }
+    maven {
+        setUrl("https://maven.aliyun.com/repository/jcenter")
+    }
+    maven {
+        setUrl("https://maven.aliyun.com/repository/google")
+    }
+    maven {
+        setUrl("https://maven.aliyun.com/nexus/content/repositories/jcenter")
+    }
+    maven {
+        setUrl("https://maven.aliyun.com/nexus/content/repositories/releases")
+    }
+    maven {
+        setUrl("https://maven.aliyun.com/repository/apache-snapshots")
+    }
     mavenCentral()
 }
 
@@ -36,7 +56,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("com.baomidou:mybatis-plus-boot-starter:3.5.3.2")
+    implementation("com.baomidou:mybatis-plus-boot-starter:3.5.9")
+    implementation("com.baomidou:mybatis-plus-jsqlparser-4.9:3.5.9")
     implementation("javax.validation:validation-api")
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("com.mysql:mysql-connector-j")
@@ -45,10 +66,10 @@ dependencies {
     testImplementation("org.springframework.security:spring-security-test")
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs += "-Xjsr305=strict"
-        jvmTarget = "1.8"
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xjsr305=strict")
+        jvmTarget.set(JvmTarget.JVM_1_8)
     }
 }
 
