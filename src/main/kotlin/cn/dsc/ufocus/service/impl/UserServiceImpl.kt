@@ -66,7 +66,7 @@ class UserServiceImpl(
     }
 
     override fun page(param: PageParam<UserQuery>): PageInfo<UserItem> {
-        val users = userMapper.selectByQuery(PageDTO.of(param.page, param.size), param.query).toInfo(UserEntity::toItem)
+        val users = userMapper.selectByQuery(PageDTO.of(param.page, param.size), param.query).toPageInfo(UserEntity::toItem)
         userRoleRelService.fillListByKey(users, UserItem::getId) { u, r ->
             u.roles = r.map(UserRoleRel::toRole)
         }

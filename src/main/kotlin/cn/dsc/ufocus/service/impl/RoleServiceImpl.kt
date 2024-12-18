@@ -5,7 +5,7 @@
 package cn.dsc.ufocus.service.impl
 
 import cn.dsc.ufocus.convert.toDetail
-import cn.dsc.ufocus.convert.toInfo
+import cn.dsc.ufocus.convert.toPageInfo
 import cn.dsc.ufocus.convert.toItem
 import cn.dsc.ufocus.convert.toOption
 import cn.dsc.ufocus.entity.RoleEntity
@@ -16,6 +16,7 @@ import cn.dsc.ufocus.param.role.*
 import cn.dsc.ufocus.service.RolePermissionRelService
 import cn.dsc.ufocus.service.RoleService
 import cn.dsc.ufocus.service.UserService
+import com.baomidou.mybatisplus.core.metadata.IPage
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -31,7 +32,7 @@ class RoleServiceImpl(
     private lateinit var userService: UserService
 
     override fun listByIds(ids: List<Long>): List<RoleOption> {
-        val roles = roleMapper.selectBatchIds(ids)
+        val roles = roleMapper.selectByIds(ids)
         return roles.map(RoleEntity::toOption)
     }
 
@@ -48,7 +49,8 @@ class RoleServiceImpl(
     }
 
     override fun page(param: PageParam<RoleQuery>): PageInfo<RoleItem> {
-        val roles = roleMapper.select(PageDTO.of(param.page, param.size), param.query).toInfo(RoleEntity::toItem)
+        val ipage: IPage<RoleEntity> = roleMapper.select(PageDTO.of(param.page, param.size), param.query)
+        val roles = ipage.toPageInfo { it.toItem() }
         userService.fill(roles, RoleItem::getCreateUser, RoleItem::setCreateUser)
         return roles
     }
