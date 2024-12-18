@@ -24,12 +24,12 @@ public class User extends UserItem {
     private LocalDateTime createTime;
 
     /**
-     * 最近更新用户
+     * 更新用户
      */
     private UserOption updateUser;
 
     /**
-     * 最近更新时间
+     * 更新时间
      */
     private LocalDateTime updateTime;
 

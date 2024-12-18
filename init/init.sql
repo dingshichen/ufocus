@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS role_prmsn_rel
 ;
 
 insert into usr (usr_id, usr_nm, acc_no, lck_flg, crt_usr_id, crt_tm, upt_usr_id, upt_tm)
-values (100000000, '超级管理员', 'admin', 0, 1, now(), 1, now());
+values (100000000, '超级管理员', 'admin', 0, 100000000, now(), 100000000, now());
 
 insert into usr_crtfct (usr_id, pwd)
 values (100000000, '{bcrypt}$2a$10$hK2mQGxf/FL0gY8Nnk87zuwZGbUednLSx3GKnr7GHU.RTF242f6dK');
@@ -109,7 +109,7 @@ values (12000001, '用户查看', 'USER_VIEW'), (12000002, '用户管理', 'USER
        (12000003, '角色查看', 'ROLE_VIEW'), (12000004, '角色管理', 'ROLE_MANAGE');
 
 insert into role (role_id, role_nm, role_cd, crt_usr_id, crt_tm, upt_usr_id, upt_tm)
-values (100000000, '超级管理员', 'S_ADMIN', 1, now(), 1, now());
+values (100000000, '超级管理员', 'S_ADMIN', 100000000, now(), 100000000, now());
 
 insert into role_prmsn_rel (role_id, prmsn_id)
 values (100000000, 12000001), (100000000, 12000002), (100000000, 12000003), (100000000, 12000004);

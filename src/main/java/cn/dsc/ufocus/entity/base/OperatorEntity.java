@@ -15,13 +15,13 @@ import java.time.LocalDateTime;
 public abstract class OperatorEntity extends CreatorEntity {
 
     /**
-     * 最近更新用户ID
+     * 更新用户ID
      */
     @TableField(value = "upt_usr_id", fill = FieldFill.INSERT_UPDATE)
     private Long updateUserId;
 
     /**
-     * 最近更新时间
+     * 更新时间
      */
     @TableField(value = "upt_tm", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
