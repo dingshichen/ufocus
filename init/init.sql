@@ -8,7 +8,7 @@ use ufocus;
 ********************************************************/
 CREATE TABLE IF NOT EXISTS usr
 (
-    usr_id BIGINT NOT NULL AUTO_INCREMENT COMMENT '用户ID' ,
+    usr_id BIGINT NOT NULL COMMENT '用户ID' ,
     usr_nm VARCHAR(120) NOT NULL COMMENT '用户姓名' ,
     acc_no VARCHAR(30) NOT NULL COMMENT '账号' ,
     phn_no VARCHAR(11) COMMENT '手机号码' ,
@@ -46,13 +46,13 @@ CREATE TABLE IF NOT EXISTS usr_crtfct
 ********************************************************/
 CREATE TABLE IF NOT EXISTS role
 (
-    role_id BIGINT NOT NULL AUTO_INCREMENT COMMENT '角色ID' ,
+    role_id BIGINT NOT NULL COMMENT '角色ID' ,
     role_nm VARCHAR(30) NOT NULL COMMENT '角色名称' ,
+    role_cd VARCHAR(20) COMMENT '角色编码' ,
     crt_usr_id BIGINT NOT NULL COMMENT '创建用户ID' ,
     crt_tm DATETIME NOT NULL COMMENT '创建时间' ,
     upt_usr_id BIGINT NOT NULL COMMENT '更新用户ID' ,
     upt_tm DATETIME NOT NULL COMMENT '更新时间' ,
-    role_cd VARCHAR(20) COMMENT '角色编码' ,
     PRIMARY KEY (role_id)
 )
     COMMENT '角色'
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS usr_role_rel
 ********************************************************/
 CREATE TABLE IF NOT EXISTS prmsn
 (
-    prmsn_id BIGINT NOT NULL AUTO_INCREMENT COMMENT '权限ID' ,
+    prmsn_id BIGINT NOT NULL COMMENT '权限ID' ,
     prmsn_nm VARCHAR(30) NOT NULL COMMENT '权限名称' ,
     prmsn_cd VARCHAR(20) NOT NULL COMMENT '权限编码' ,
     PRIMARY KEY (prmsn_id)
@@ -99,11 +99,20 @@ CREATE TABLE IF NOT EXISTS role_prmsn_rel
 ;
 
 insert into usr (usr_id, usr_nm, acc_no, lck_flg, crt_usr_id, crt_tm, upt_usr_id, upt_tm)
-values (1, '超级管理员', 'admin', 0, 1, now(), 1, now());
+values (100000000, '超级管理员', 'admin', 0, 1, now(), 1, now());
 
 insert into usr_crtfct (usr_id, pwd)
-values (1, '{bcrypt}$2a$10$hK2mQGxf/FL0gY8Nnk87zuwZGbUednLSx3GKnr7GHU.RTF242f6dK');
+values (100000000, '{bcrypt}$2a$10$hK2mQGxf/FL0gY8Nnk87zuwZGbUednLSx3GKnr7GHU.RTF242f6dK');
 
-insert into prmsn (prmsn_nm, prmsn_cd)
-values ('用户查看', 'USER_VIEW'), ('用户管理', 'USER_MANAGE'),
-       ('角色查看', 'ROLE_VIEW'), ('角色管理', 'ROLE_MANAGE');
+insert into prmsn (prmsn_id, prmsn_nm, prmsn_cd)
+values (12000001, '用户查看', 'USER_VIEW'), (12000002, '用户管理', 'USER_MANAGE'),
+       (12000003, '角色查看', 'ROLE_VIEW'), (12000004, '角色管理', 'ROLE_MANAGE');
+
+insert into role (role_id, role_nm, role_cd, crt_usr_id, crt_tm, upt_usr_id, upt_tm)
+values (100000000, '超级管理员', 'S_ADMIN', 1, now(), 1, now());
+
+insert into role_prmsn_rel (role_id, prmsn_id)
+values (100000000, 12000001), (100000000, 12000002), (100000000, 12000003), (100000000, 12000004);
+
+insert into usr_role_rel (usr_id, role_id)
+values (100000000, 100000000);

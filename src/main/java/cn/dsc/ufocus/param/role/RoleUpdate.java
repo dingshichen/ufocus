@@ -20,10 +20,10 @@ import java.util.List;
 public class RoleUpdate extends Base {
 
     /**
-     * 中文名称
+     * 角色名称
      */
     @NotEmpty
-    private String chnName;
+    private String roleName;
 
     /**
      * 权限ID集合

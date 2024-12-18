@@ -39,7 +39,7 @@ class RoleServiceImpl(
     override fun load(id: Long): Role? {
         return roleMapper.selectById(id)?.toDetail()?.apply {
             userService.fill(this, Role::getCreateUser, Role::setCreateUser)
-            userService.fill(this, Role::getLatestUpdateUser, Role::setLatestUpdateUser)
+            userService.fill(this, Role::getUpdateUser, Role::setUpdateUser)
         }
     }
 
@@ -64,7 +64,7 @@ class RoleServiceImpl(
     @Transactional
     override fun insert(roleInsert: RoleInsert): Long {
         val role = RoleEntity().also {
-            it.chnName = roleInsert.chnName
+            it.roleName = roleInsert.roleName
         }
         roleMapper.insert(role)
         rolePermissionRelService.insertBatch(role.id, roleInsert.permissionIds)
@@ -74,7 +74,7 @@ class RoleServiceImpl(
     @Transactional
     override fun update(roleUpdate: RoleUpdate) {
         val role = roleMapper.selectById(roleUpdate.id)
-        role.chnName = roleUpdate.chnName
+        role.roleName = roleUpdate.roleName
         roleMapper.updateById(role)
         rolePermissionRelService.replace(roleUpdate.id, roleUpdate.permissionIds)
     }

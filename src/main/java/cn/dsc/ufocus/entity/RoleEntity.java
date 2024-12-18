@@ -25,9 +25,9 @@ public class RoleEntity extends OperatorEntity {
     private Long id;
 
     /**
-     * 中文名称
+     * 角色名称
      */
-    @TableField(value = "chn_nm")
-    private String chnName;
+    @TableField(value = "role_nm")
+    private String roleName;
 
 }

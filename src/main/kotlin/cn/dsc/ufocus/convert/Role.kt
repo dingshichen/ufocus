@@ -12,21 +12,21 @@ import cn.dsc.ufocus.param.user.UserOption
 
 fun RoleEntity.toOption() = RoleOption().also {
     it.id = id
-    it.chnName = chnName
+    it.roleName = roleName
 }
 
 fun RoleEntity.toItem() = RoleItem().also {
     it.id = id
-    it.chnName = chnName
+    it.roleName = roleName
     it.createUser = UserOption(createUserId)
     it.createTime = createTime
 }
 
 fun RoleEntity.toDetail() = Role().also {
     it.id = id
-    it.chnName = chnName
+    it.roleName = roleName
     it.createUser = UserOption(createUserId)
     it.createTime = createTime
-    it.latestUpdateUser = UserOption(updateUserId)
+    it.updateUser = UserOption(updateUserId)
     it.updateTime = updateTime
 }

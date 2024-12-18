@@ -18,12 +18,12 @@ import java.time.LocalDateTime;
 public class Role extends RoleItem {
 
     /**
-     * 最后更新人
+     * 更新用户
      */
-    private UserOption latestUpdateUser;
+    private UserOption updateUser;
 
     /**
-     * 最后更新时间
+     * 更新时间
      */
     private LocalDateTime updateTime;
 }

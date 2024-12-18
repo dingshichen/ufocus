@@ -31,7 +31,7 @@ fun UserEntity.toDetail() = User().also {
     it.phoneNo = phoneNo
     it.createUser = UserOption(createUserId)
     it.createTime = createTime
-    it.latestUpdateUser = UserOption(updateUserId)
+    it.updateUser = UserOption(updateUserId)
     it.updateTime = updateTime
 }
 

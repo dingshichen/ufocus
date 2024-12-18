@@ -26,7 +26,7 @@ public class User extends UserItem {
     /**
      * 最近更新用户
      */
-    private UserOption latestUpdateUser;
+    private UserOption updateUser;
 
     /**
      * 最近更新时间

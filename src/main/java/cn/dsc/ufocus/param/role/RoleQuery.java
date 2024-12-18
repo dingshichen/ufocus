@@ -13,7 +13,7 @@ import lombok.*;
 public class RoleQuery extends Query {
 
     /**
-     * 中文名称
+     * 角色名称
      */
-    private String chnName;
+    private String roleName;
 }

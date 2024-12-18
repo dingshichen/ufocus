@@ -5,7 +5,7 @@
     <!--@mbg.generated-->
     <!--@Table `role`-->
     <id column="role_id" jdbcType="BIGINT" property="id" />
-    <result column="chn_nm" jdbcType="VARCHAR" property="chnName" />
+    <result column="role_nm" jdbcType="VARCHAR" property="roleName" />
     <result column="crt_usr_id" jdbcType="BIGINT" property="createUserId" />
     <result column="crt_tm" jdbcType="TIMESTAMP" property="createTime" />
     <result column="upt_usr_id" jdbcType="BIGINT" property="updateUserId" />
@@ -13,14 +13,14 @@
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    role_id, chn_nm, crt_usr_id, crt_tm, upt_usr_id, upt_tm
+    role_id, role_nm, crt_usr_id, crt_tm, upt_usr_id, upt_tm
   </sql>
 
   <select id="selectBySelectQuery" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" /> from role
     <where>
       <if test="query.keyword != null and query.keyword != ''">
-        and chn_nm like concat('%', #{query.keyword}, '%')
+        and role_nm like concat('%', #{query.keyword}, '%')
       </if>
     </where>
     order by role_id desc
@@ -29,8 +29,8 @@
   <select id="select" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" /> from role
     <where>
-      <if test="query.chnName != null and query.chnName != ''">
-        and chn_nm like concat('%', #{query.chnName}, '%')
+      <if test="query.roleName != null and query.roleName != ''">
+        and role_nm like concat('%', #{query.roleName}, '%')
       </if>
     </where>
     order by role_id desc
