@@ -116,3 +116,81 @@ values (100000000, 12000001), (100000000, 12000002), (100000000, 12000003), (100
 
 insert into usr_role_rel (usr_id, role_id)
 values (100000000, 100000000);
+
+
+/********************************************************
+    Table  Name    :    单词
+    Create Date    :    2024年12月18日
+********************************************************/
+CREATE TABLE IF NOT EXISTS word
+(
+    word_id BIGINT NOT NULL COMMENT '单词ID' ,
+    chn_nm VARCHAR(30) NOT NULL COMMENT '中文名称' ,
+    eng_nm VARCHAR(200) NOT NULL COMMENT '英文名称' ,
+    eng_abbr VARCHAR(30) NOT NULL COMMENT '英文缩写' ,
+    std_word_flg BIT NOT NULL COMMENT '标准单词标志' ,
+    std_word_id BIGINT COMMENT '标准单词ID' ,
+    crt_usr_id BIGINT NOT NULL COMMENT '创建用户ID' ,
+    crt_tm DATETIME NOT NULL COMMENT '创建时间' ,
+    upt_usr_id BIGINT NOT NULL COMMENT '更新用户ID' ,
+    upt_tm DATETIME NOT NULL COMMENT '更新时间' ,
+    PRIMARY KEY (word_id)
+)
+    COMMENT '单词'
+;
+
+
+/********************************************************
+    Table  Name    :    用语词素
+    Create Date    :    2024年12月18日
+********************************************************/
+CREATE TABLE IF NOT EXISTS term_fragment
+(
+    term_id BIGINT NOT NULL COMMENT '用语ID' ,
+    word_id BIGINT NOT NULL COMMENT '单词ID' ,
+    sort_no INT NOT NULL COMMENT '顺序号' ,
+    PRIMARY KEY (term_id,word_id)
+)
+    COMMENT '用语词素'
+;
+
+/********************************************************
+    Table  Name    :    域
+    Create Date    :    2024年12月18日
+********************************************************/
+CREATE TABLE IF NOT EXISTS domain
+(
+    domain_id BIGINT NOT NULL COMMENT '域ID' ,
+    word_id BIGINT NOT NULL COMMENT '单词ID' ,
+    logic_data_typ VARCHAR(20) NOT NULL COMMENT '逻辑数据类型' ,
+    len BIGINT COMMENT '长度' ,
+    prcsn BIGINT COMMENT '精度' ,
+    deflt_flg BIT NOT NULL COMMENT '默认标志' ,
+    crt_usr_id BIGINT NOT NULL COMMENT '创建用户ID' ,
+    crt_tm DATETIME NOT NULL COMMENT '创建时间' ,
+    upt_usr_id BIGINT NOT NULL COMMENT '更新用户ID' ,
+    upt_tm DATETIME NOT NULL COMMENT '更新时间' ,
+    PRIMARY KEY (domain_id)
+)
+    COMMENT '域'
+;
+
+/********************************************************
+    Table  Name    :    用语
+    Create Date    :    2024年12月18日
+********************************************************/
+CREATE TABLE IF NOT EXISTS term
+(
+    term_id BIGINT NOT NULL COMMENT '用语ID' ,
+    chn_nm VARCHAR(30) NOT NULL COMMENT '中文名称' ,
+    eng_nm VARCHAR(200) NOT NULL COMMENT '英文名称' ,
+    eng_abbr VARCHAR(30) NOT NULL COMMENT '英文缩写' ,
+    std_term_flg BIT NOT NULL COMMENT '标准用语标志' ,
+    crt_usr_id BIGINT NOT NULL COMMENT '创建用户ID' ,
+    crt_tm DATETIME NOT NULL COMMENT '创建时间' ,
+    upt_usr_id BIGINT NOT NULL COMMENT '更新用户ID' ,
+    upt_tm DATETIME NOT NULL COMMENT '更新时间' ,
+    PRIMARY KEY (term_id)
+)
+    COMMENT '用语'
+;
