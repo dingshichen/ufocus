@@ -13,14 +13,14 @@ import lombok.*;
 public class UserOption extends Base {
 
     /**
-     * 中文名称
+     * 用户姓名
      */
-    private String chnName;
+    private String userName;
 
     /**
-     * 是否锁定标志
+     * 锁定标志
      */
-    private Boolean isLockFlag;
+    private Boolean lockFlag;
 
     public UserOption(Long id) {
         super(id);

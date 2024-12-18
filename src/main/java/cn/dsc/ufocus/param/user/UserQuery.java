@@ -16,19 +16,19 @@ public class UserQuery extends Query {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 中文名称
+     * 用户姓名
      */
-    private String chnName;
+    private String userName;
 
     /**
      * 手机号码
      */
-    private String mobilePhoneNumber;
+    private String phoneNo;
 
     /**
-     * 是否锁定标志
+     * 锁定标志
      */
-    private Boolean isLockFlag;
+    private Boolean lockFlag;
 
     /**
      * 角色ID

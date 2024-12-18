@@ -8,11 +8,11 @@
     <result column="pwd" jdbcType="VARCHAR" property="pwd" />
     <result column="rmbr_me_srs" jdbcType="VARCHAR" property="rememberMeSeries" />
     <result column="rmbr_me_tkn" jdbcType="VARCHAR" property="rememberMeToken" />
-    <result column="rmbr_me_latest_used_tm" jdbcType="TIMESTAMP" property="rememberMeLatestUsedTime" />
+    <result column="rmbr_me_latest_use_tm" jdbcType="TIMESTAMP" property="rememberMeLatestUseTime" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    usr_id, pwd, rmbr_me_series, rmbr_me_tkn, rmbr_me_latest_used_tm
+    usr_id, pwd, rmbr_me_series, rmbr_me_tkn, rmbr_me_latest_use_tm
   </sql>
 
   <select id="selectPassword" resultType="java.lang.String">
@@ -24,22 +24,22 @@
   </update>
 
   <update id="updateRememberMe">
-    update usr_crtfct set rmbr_me_series = #{rememberMeSeries}, rmbr_me_tkn = #{rememberMeToken}, rmbr_me_latest_used_tm = #{rememberMeLatestUsedTime} where usr_id = #{userId}
+    update usr_crtfct set rmbr_me_srs = #{rememberMeSeries}, rmbr_me_tkn = #{rememberMeToken}, rmbr_me_latest_use_tm = #{rememberMeLatestUseTime} where usr_id = #{userId}
   </update>
 
   <update id="updateRememberMeBySeries">
-    update usr_crtfct set rmbr_me_tkn = #{rememberMeToken}, rmbr_me_latest_used_tm = #{rememberMeLatestUsedTime} where rmbr_me_series = #{rememberMeSeries}
+    update usr_crtfct set rmbr_me_tkn = #{rememberMeToken}, rmbr_me_latest_use_tm = #{rememberMeLatestUsedTime} where rmbr_me_srs = #{rememberMeSeries}
   </update>
 
   <select id="selectRememberMeBySeries" resultType="org.springframework.security.web.authentication.rememberme.PersistentRememberMeToken">
-    select u.email_adrs as username, c.rmbr_me_series as series, c.rmbr_me_tkn as tokenValue, c.rmbr_me_latest_used_tm as date from usr_crtfct c
+    select u.email as username, c.rmbr_me_srs as series, c.rmbr_me_tkn as tokenValue, c.rmbr_me_latest_use_tm as date from usr_crtfct c
         inner join usr u on c.usr_id = u.usr_id
-    where c.rmbr_me_series = #{rememberMeSeries}
+    where c.rmbr_me_srs = #{rememberMeSeries}
   </select>
 
-  <update id="clearRememberMeByEmailAddress">
+  <update id="clearRememberMeByAccountNo">
     update usr_crtfct c inner join usr u on c.usr_id = u.usr_id
-    set c.rmbr_me_series = null, c.rmbr_me_tkn = null, c.rmbr_me_latest_used_tm = null
-    where u.email_adrs = #{emailAddress}
+    set c.rmbr_me_srs = null, c.rmbr_me_tkn = null, c.rmbr_me_latest_use_tm = null
+    where u.acc_no = #{accountNo}
   </update>
 </mapper>

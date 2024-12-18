@@ -20,15 +20,15 @@ interface UserCertificateMapper : BaseMapper<UserCertificateEntity> {
         @Param("userId") userId: Long,
         @Param("rememberMeSeries") rememberMeSeries: String,
         @Param("rememberMeToken") rememberMeToken: String,
-        @Param("rememberMeLatestUsedTime") rememberMeLatestUsedTime: Date
+        @Param("rememberMeLatestUseTime") rememberMeLatestUseTime: Date
     )
 
     fun updateRememberMeBySeries(
         @Param("rememberMeSeries") rememberMeSeries: String,
         @Param("rememberMeToken") rememberMeToken: String,
-        @Param("rememberMeLatestUsedTime") rememberMeLatestUsedTime: Date)
+        @Param("rememberMeLatestUseTime") rememberMeLatestUseTime: Date)
 
     fun selectRememberMeBySeries(@Param("rememberMeSeries") rememberMeSeries: String): PersistentRememberMeToken?
 
-    fun clearRememberMeByEmailAddress(@Param("emailAddress") emailAddress: String)
+    fun clearRememberMeByAccountNo(@Param("accountNo") accountNo: String)
 }

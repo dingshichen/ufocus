@@ -5,28 +5,27 @@
     <!--@mbg.generated-->
     <!--@Table usr-->
     <id column="usr_id" jdbcType="BIGINT" property="id" />
-    <result column="chn_nm" jdbcType="VARCHAR" property="chnName" />
-    <result column="mbl_phn_nmbr" jdbcType="VARCHAR" property="mobilePhoneNumber" />
-    <result column="email_adrs" jdbcType="VARCHAR" property="emailAddress" />
-    <result column="is_lck_flg" jdbcType="BIT" property="isLockFlag" />
+    <result column="usr_nm" jdbcType="VARCHAR" property="userName" />
+    <result column="acc_no" jdbcType="VARCHAR" property="accountNo" />
+    <result column="phn_no" jdbcType="VARCHAR" property="phoneNo" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="lck_flg" jdbcType="BIT" property="lockFlag" />
     <result column="crt_usr_id" jdbcType="BIGINT" property="createUserId" />
     <result column="crt_tm" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="latest_update_usr_id" jdbcType="BIGINT" property="latestUpdateUserId" />
-    <result column="latest_update_tm" jdbcType="TIMESTAMP" property="latestUpdateTime" />
+    <result column="upt_usr_id" jdbcType="BIGINT" property="updateUserId" />
+    <result column="upt_tm" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    usr_id, chn_nm, mbl_phn_nmbr, email_adrs, is_lck_flg, crt_usr_id, crt_tm, latest_update_usr_id,
-    latest_update_tm
+    usr_id, usr_nm, phn_no, email, lck_flg, crt_usr_id, crt_tm, upt_usr_id, upt_tm
   </sql>
   <sql id="Join_Column">
-    u.usr_id, u.chn_nm, u.mbl_phn_nmbr, u.email_adrs, u.is_lck_flg, u.crt_usr_id, u.crt_tm, u.latest_update_usr_id,
-    u.latest_update_tm
+    u.usr_id, u.usr_nm, u.phn_no, u.email, u.lck_flg, u.crt_usr_id, u.crt_tm, u.upt_usr_id, u.upt_tm
   </sql>
 
-  <select id="selectByEmail" resultMap="BaseResultMap">
+  <select id="selectByAccountNo" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" />
-    from usr where email_adrs = #{emailAddress}
+    from usr where acc_no = #{accountNo}
   </select>
 
   <select id="selectByQuery" resultMap="BaseResultMap">
@@ -36,14 +35,14 @@
       inner join usr_role_rel r on u.usr_id = r.usr_id
     </if>
     <where>
-      <if test="query.chnName != null and query.chnName != ''">
-        and u.chn_nm like concat('%', #{query.chnName}, '%')
+      <if test="query.userName != null and query.userName != ''">
+        and u.usr_nm like concat('%', #{query.userName}, '%')
       </if>
-      <if test="query.mobilePhoneNumber != null and query.mobilePhoneNumber != ''">
-        and u.mbl_phn_nmbr like concat('%', #{query.mobilePhoneNumber}, '%')
+      <if test="query.phoneNo != null and query.phoneNo != ''">
+        and u.phn_no like concat('%', #{query.phoneNo}, '%')
       </if>
-      <if test="query.isLockFlag != null">
-        and u.is_lck_flg = #{query.isLockFlag}
+      <if test="query.lockFlag != null">
+        and u.lck_flg = #{query.lockFlag}
       </if>
       <if test="query.roleId != null">
         and r.role_id = #{query.roleId}
@@ -56,7 +55,7 @@
     select <include refid="Base_Column_List" /> from usr
     <where>
       <if test="query.keyword != null and query.keyword != ''">
-        and chn_nm like concat('%', #{query.keyword}, '%')
+        and usr_nm like concat('%', #{query.keyword}, '%')
       </if>
     </where>
     </select>

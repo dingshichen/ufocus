@@ -8,12 +8,12 @@
     <result column="chn_nm" jdbcType="VARCHAR" property="chnName" />
     <result column="crt_usr_id" jdbcType="BIGINT" property="createUserId" />
     <result column="crt_tm" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="latest_update_usr_id" jdbcType="BIGINT" property="latestUpdateUserId" />
-    <result column="latest_update_tm" jdbcType="TIMESTAMP" property="latestUpdateTime" />
+    <result column="upt_usr_id" jdbcType="BIGINT" property="updateUserId" />
+    <result column="upt_tm" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    role_id, chn_nm, crt_usr_id, crt_tm, latest_update_usr_id, latest_update_tm
+    role_id, chn_nm, crt_usr_id, crt_tm, upt_usr_id, upt_tm
   </sql>
 
   <select id="selectBySelectQuery" resultMap="BaseResultMap">

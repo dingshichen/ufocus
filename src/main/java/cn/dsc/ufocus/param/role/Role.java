@@ -25,5 +25,5 @@ public class Role extends RoleItem {
     /**
      * 最后更新时间
      */
-    private LocalDateTime latestUpdateTime;
+    private LocalDateTime updateTime;
 }

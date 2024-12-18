@@ -11,27 +11,27 @@ import cn.dsc.ufocus.param.user.UserOption
 
 fun UserEntity.toOption() = UserOption().also {
     it.id = id
-    it.chnName = chnName
-    it.isLockFlag = isLockFlag
+    it.userName = userName
+    it.lockFlag = lockFlag
 }
 
 fun UserEntity.toItem() = UserItem().also {
     it.id = id
-    it.chnName = chnName
-    it.isLockFlag = isLockFlag
-    it.emailAddress = emailAddress
-    it.mobilePhoneNumber = mobilePhoneNumber
+    it.userName = userName
+    it.lockFlag = lockFlag
+    it.email = email
+    it.phoneNo = phoneNo
 }
 
 fun UserEntity.toDetail() = User().also {
     it.id = id
-    it.chnName = chnName
-    it.isLockFlag = isLockFlag
-    it.emailAddress = emailAddress
-    it.mobilePhoneNumber = mobilePhoneNumber
+    it.userName = userName
+    it.lockFlag = lockFlag
+    it.email = email
+    it.phoneNo = phoneNo
     it.createUser = UserOption(createUserId)
     it.createTime = createTime
-    it.latestUpdateUser = UserOption(latestUpdateUserId)
-    it.latestUpdateTime = latestUpdateTime
+    it.latestUpdateUser = UserOption(updateUserId)
+    it.updateTime = updateTime
 }
 

@@ -36,7 +36,7 @@ public class UserCertificateEntity {
     /**
      * 记住我服务
      */
-    @TableField(value = "rmbr_me_series")
+    @TableField(value = "rmbr_me_srs")
     private String rememberMeSeries;
 
     /**
@@ -48,6 +48,6 @@ public class UserCertificateEntity {
     /**
      * 记住我最近使用时间
      */
-    @TableField(value = "rmbr_me_latest_used_tm")
-    private LocalDateTime rememberMeLatestUsedTime;
+    @TableField(value = "rmbr_me_latest_use_tm")
+    private LocalDateTime rememberMeLatestUseTime;
 }

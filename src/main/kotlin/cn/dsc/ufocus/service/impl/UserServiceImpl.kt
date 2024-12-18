@@ -39,15 +39,15 @@ class UserServiceImpl(
     private lateinit var rolePermissionRelService: RolePermissionRelService
 
     override fun loadUserByUsername(username: String): UserDetails {
-        val entity = userMapper.selectByEmail(username) ?: throw UsernameNotFoundException("获取不到用户")
+        val entity = userMapper.selectByAccountNo(username) ?: throw UsernameNotFoundException("获取不到用户")
         val password = userCertificateService.loadPassword(entity.id)
         val roleIds = userRoleRelService.listRoleIdsByUserId(entity.id)
         val permissions = rolePermissionRelService.listPermissionsByRoleIds(roleIds)
-        return UserDetail(entity.id, entity.emailAddress, password, entity.isLockFlag, permissions)
+        return UserDetail(entity.id, entity.email, password, entity.lockFlag, permissions)
     }
 
     override fun listByIds(ids: List<Long>): List<UserOption> {
-        return userMapper.selectBatchIds(ids).map(UserEntity::toOption)
+        return userMapper.selectByIds(ids).map(UserEntity::toOption)
     }
 
     override fun load(id: Long): User? {
@@ -77,10 +77,10 @@ class UserServiceImpl(
     @Transactional
     override fun insert(userInsert: UserInsert): Long {
         val entity = UserEntity().also {
-            it.chnName = userInsert.chnName
-            it.emailAddress = userInsert.emailAddress
-            it.mobilePhoneNumber = userInsert.mobilePhoneNumber
-            it.isLockFlag = false
+            it.userName = userInsert.userName
+            it.email = userInsert.email
+            it.phoneNo = userInsert.phoneNo
+            it.lockFlag = false
         }
         userMapper.insert(entity)
         userCertificateService.insert(entity.id, userInsert.pwd)
@@ -91,9 +91,9 @@ class UserServiceImpl(
     @Transactional
     override fun update(userUpdate: UserUpdate) {
         val user = userMapper.selectById(userUpdate.id)
-        user.chnName = userUpdate.chnName
-        user.mobilePhoneNumber = userUpdate.mobilePhoneNumber
-        user.emailAddress = userUpdate.emailAddress
+        user.userName = userUpdate.userName
+        user.phoneNo = userUpdate.phoneNo
+        user.email = userUpdate.email
         userMapper.updateById(user)
         userRoleRelService.update(userUpdate.id, userUpdate.roleIds)
     }
@@ -101,16 +101,16 @@ class UserServiceImpl(
     @Transactional
     override fun lock(id: Long) {
         val user = userMapper.selectById(id) ?: throw EntityNotFoundException("用户不存在")
-        user.isLockFlag = true
-        user.latestUpdateUserId = currentUser().id
-        user.latestUpdateTime = LocalDateTime.now()
+        user.lockFlag = true
+        user.updateUserId = currentUser().id
+        user.updateTime = LocalDateTime.now()
         userMapper.updateById(user)
     }
 
     @Transactional
     override fun unlock(id: Long) {
         val user = userMapper.selectById(id) ?: throw EntityNotFoundException("用户不存在")
-        user.isLockFlag = false
+        user.lockFlag = false
         userMapper.updateById(user)
     }
 }

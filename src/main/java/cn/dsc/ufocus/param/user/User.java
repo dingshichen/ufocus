@@ -31,6 +31,6 @@ public class User extends UserItem {
     /**
      * 最近更新时间
      */
-    private LocalDateTime latestUpdateTime;
+    private LocalDateTime updateTime;
 
 }

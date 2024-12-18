@@ -22,9 +22,9 @@ import java.util.List;
 public class UserDetail extends Base implements UserDetails {
 
     /**
-     * 电子邮箱地址
+     * 电子邮箱
      */
-    private String emailAddress;
+    private String email;
 
     /**
      * 密码
@@ -34,18 +34,18 @@ public class UserDetail extends Base implements UserDetails {
     /**
      * 是否锁定标志
      */
-    private Boolean isLockFlag;
+    private Boolean lockFlag;
 
     /**
      * 授权
      */
     private List<GrantedAuthority> authorities;
 
-    public UserDetail(Long id, String emailAddress, String password, Boolean isLockFlag, List<GrantedAuthority> authorities) {
+    public UserDetail(Long id, String email, String password, Boolean lockFlag, List<GrantedAuthority> authorities) {
         super(id);
-        this.emailAddress = emailAddress;
+        this.email = email;
         this.password = password;
-        this.isLockFlag = isLockFlag;
+        this.lockFlag = lockFlag;
         this.authorities = authorities;
     }
 
@@ -61,7 +61,7 @@ public class UserDetail extends Base implements UserDetails {
 
     @Override
     public String getUsername() {
-        return emailAddress;
+        return email;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class UserDetail extends Base implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return !isLockFlag;
+        return !lockFlag;
     }
 
     @Override

@@ -25,27 +25,33 @@ public class UserEntity extends OperatorEntity {
     private Long id;
 
     /**
-     * 中文名称
+     * 用户姓名
      */
-    @TableField(value = "chn_nm")
-    private String chnName;
+    @TableField(value = "usr_nm")
+    private String userName;
+
+    /**
+     * 账号
+     */
+    @TableField(value = "acc_no")
+    private String accountNo;
 
     /**
      * 手机号码
      */
-    @TableField(value = "mbl_phn_nmbr")
-    private String mobilePhoneNumber;
+    @TableField(value = "phn_no")
+    private String phoneNo;
 
     /**
-     * 电子邮箱地址
+     * 电子邮箱
      */
-    @TableField(value = "email_adrs")
-    private String emailAddress;
+    @TableField(value = "email")
+    private String email;
 
     /**
-     * 是否锁定标志
+     * 锁定标志
      */
-    @TableField(value = "is_lck_flg")
-    private Boolean isLockFlag;
+    @TableField(value = "lck_flg")
+    private Boolean lockFlag;
 
 }

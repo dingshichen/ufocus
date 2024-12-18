@@ -20,12 +20,12 @@ public class UserItem extends UserOption {
     /**
      * 手机号码
      */
-    private String mobilePhoneNumber;
+    private String phoneNo;
 
     /**
-     * 电子邮箱地址
+     * 电子邮箱
      */
-    private String emailAddress;
+    private String email;
 
     /**
      * 角色

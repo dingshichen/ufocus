@@ -27,6 +27,6 @@ fun RoleEntity.toDetail() = Role().also {
     it.chnName = chnName
     it.createUser = UserOption(createUserId)
     it.createTime = createTime
-    it.latestUpdateUser = UserOption(latestUpdateUserId)
-    it.latestUpdateTime = latestUpdateTime
+    it.latestUpdateUser = UserOption(updateUserId)
+    it.updateTime = updateTime
 }

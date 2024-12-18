@@ -58,6 +58,6 @@ class UserCertificateServiceImpl(
     }
 
     override fun removeUserTokens(username: String) {
-        userCertificateMapper.clearRememberMeByEmailAddress(username)
+        userCertificateMapper.clearRememberMeByAccountNo(username)
     }
 }

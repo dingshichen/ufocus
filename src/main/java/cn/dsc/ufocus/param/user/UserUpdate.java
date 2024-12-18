@@ -22,18 +22,18 @@ public class UserUpdate extends Base {
      * 中文名称
      */
     @NotEmpty
-    private String chnName;
+    private String userName;
 
     /**
      * 手机号码
      */
-    private String mobilePhoneNumber;
+    private String phoneNo;
 
     /**
-     * 电子邮箱地址
+     * 电子邮箱
      */
     @NotEmpty
-    private String emailAddress;
+    private String email;
 
     /**
      * 角色ID集合

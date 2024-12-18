@@ -17,12 +17,12 @@ public abstract class UpdaterEntity {
     /**
      * 最近更新用户ID
      */
-    @TableField(value = "latest_update_usr_id", fill = FieldFill.INSERT_UPDATE)
-    private Long latestUpdateUserId;
+    @TableField(value = "upt_usr_id", fill = FieldFill.INSERT_UPDATE)
+    private Long updateUserId;
 
     /**
      * 最近更新时间
      */
-    @TableField(value = "latest_update_tm", fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime latestUpdateTime;
+    @TableField(value = "upt_tm", fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 }
