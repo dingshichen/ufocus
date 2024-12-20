@@ -36,9 +36,9 @@ class UserServiceImplTest : UfocusApplicationTests() {
     fun update() {
         val userUpdate = UserUpdate().apply {
             id = userId
-            chnName = "张三"
-            mobilePhoneNumber = "18800001234"
-            emailAddress = "zhoukai@enhe.com"
+            userName = "张三"
+            phoneNo = "18800001234"
+            email = "zhoukai@enhe.com"
             roleIds = listOf(10000000L)
         }
         userService.update(userUpdate)
